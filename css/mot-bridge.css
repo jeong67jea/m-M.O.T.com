@@ -1,0 +1,22 @@
+
+/* MOT bridge: apply mobile overlay without changing original styles */
+#mot-shell{position:sticky;top:0;z-index:1000;background:#fff}
+#mot-shell #mot-nav-toggle{position:absolute;right:12px;top:10px;width:40px;height:40px;
+  border:1px solid #d1d5db;border-radius:6px;background:#fff;display:none}
+#mot-shell #mot-nav-toggle::before{content:'≡';font-size:22px;line-height:40px;display:block;text-align:center}
+/* desktop submenu layering */
+#mot-shell nav, #mot-shell nav *{z-index:auto}
+#mot-shell nav ul li{position:relative}
+#mot-shell nav ul li ul{position:absolute;top:100%;left:0;display:none;background:#fff;border:1px solid #e5e7eb;z-index:1100}
+#mot-shell nav ul li:hover>ul{display:block}
+
+/* mobile */
+@media (max-width:1199.98px){
+  #mot-shell #mot-nav-toggle{display:block}
+  #mot-shell nav > ul{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid #e5e7eb}
+  #mot-shell.open nav > ul{display:block}
+  #mot-shell nav ul li ul{position:static;border:0;display:none}
+  #mot-shell nav ul li.open>ul{display:block}
+  /* touch targets */
+  #mot-shell nav a{display:block;padding:14px 16px}
+}
