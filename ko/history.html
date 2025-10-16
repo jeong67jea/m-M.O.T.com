@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+<title>MOT · Mobile</title>
+<!-- history.html 기준 -->
+<link href="../css/mot-mobile.css" rel="stylesheet"/>
+<!-- Fallback styles (accordion + carousel) -->
+<style>
+    /* === Breadbox / Accordion === */
+    #mot-nav .menu > .menu-item > .submenu { display:none !important; }
+    #mot-nav .menu > .menu-item[aria-expanded="true"] > .submenu { display:block !important; }
+
+    #mot-nav .menu-btn{
+      display:flex; align-items:center; justify-content:space-between;
+      width:100%; padding:14px 16px; border:0; background:#fff;
+      font-size:18px; font-weight:800; cursor:pointer;
+      pointer-events:auto; position:relative; z-index:1; /* ensure clickable */
+    }
+    #mot-nav .menu-btn::after{ content:"▾"; transition:transform .2s ease; }
+    #mot-nav .menu-item[aria-expanded="true"] > .menu-btn::after{ transform:rotate(180deg); }
+
+    #mot-nav ul{ list-style:none; margin:0; padding:0; }
+    #mot-nav .menu{ display:flex; flex-direction:column; gap:12px; }
+    #mot-nav .menu-item{ border:1px solid #e8edf4; border-radius:16px; background:#fff; overflow:hidden; }
+
+    /* === Hero / Carousel === */
+    .hc-fullbleed{
+      width:100vw; position:relative;
+      left:50%; right:50%; margin-left:-50vw; margin-right:-50vw;
+    }
+    .hc-slider{
+      position:relative; overflow:hidden;
+      height:360px; min-height:360px;
+      background:transparent;
+      border-radius:18px; box-shadow:0 14px 40px rgba(0,0,0,.14);
+    }
+    .hc-track{ display:flex; height:100%; transition:transform .4s ease; will-change:transform; }
+    .hc-slide{ position:relative; margin:0; flex:0 0 100%; min-width:100%; height:100%; backface-visibility:hidden; transform:translateZ(0); }
+    .hc-slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Caption: top-center */
+    .hc-caption{
+      position:absolute; top:14px; left:50%; transform:translateX(-50%);
+      z-index:2; color:#fff; font-weight:800; text-align:center;
+      font-size:clamp(18px, 2.4vw, 28px); line-height:1.25;
+      text-shadow:0 2px 4px rgba(0,0,0,.35);
+      padding:8px 14px; border-radius:999px; background:rgba(0,0,0,.25);
+      white-space:nowrap; max-width:96%; overflow:hidden; text-overflow:ellipsis;
+      pointer-events:none;
+    }
+
+    .hc-prev,.hc-next{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:38px; height:38px; border:0; border-radius:12px;
+      background:rgba(0,0,0,.35); color:#fff; cursor:pointer; z-index:3;
+      display:grid; place-items:center;
+    }
+    .hc-prev{ left:12px; } .hc-next{ right:12px; }
+
+    .hc-dots{ position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:flex; gap:8px; z-index:3; }
+    .hc-dots button{ width:8px; height:8px; border:0; border-radius:50%; background:rgba(255,255,255,.6); cursor:pointer; }
+    .hc-dots button[aria-current="true"]{ background:#fff; }
+
+    /* === Page content card === */
+    :root { --ink:#0b1320; --muted:#5f6b7a; --border:#e6e9f0; }
+    html,body{ margin:0; color:var(--ink); background:#fafbfe; line-height:1.6;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif; }
+    main.wrap{ max-width:1200px; margin:24px auto 64px; padding:0 16px; }
+    .panel{
+      background:#fff; border:1px solid #e6e9f0; border-radius:16px;
+      box-shadow:0 16px 50px rgba(0,0,0,.10);
+      padding:clamp(18px,3vw,28px); position:relative; overflow:hidden;
+    }
+    .content{ max-width:1020px; margin:0 auto; padding-right:clamp(160px,22vw,320px); }
+    .content h1{ font-size:clamp(28px, 4vw, 36px); margin:8px 0 10px; }
+    .sub{ color:#5f6b7a; font-weight:600; margin:0 0 18px; }
+    .corner-img{
+      position:absolute; right:clamp(18px,3vw,28px); bottom:clamp(18px,3vw,28px);
+      width:clamp(160px, 22vw, 320px); max-width:38%;
+      height:auto; display:block; border-radius:10px;
+      box-shadow:0 8px 24px rgba(0,0,0,.10);
+    }
+    @media (max-width:640px){
+      .content{ padding-right:clamp(120px,34vw,180px); }
+      .corner-img{ width:clamp(120px, 34vw, 180px); }
+    }
+  </style>
+<!-- TOC pills -->
+<style>
+    .toc-inline{ position: sticky; top:6px; z-index:6; max-width:1200px; margin:0 auto 10px; padding:0 16px; display:flex; gap:8px; flex-wrap:wrap; }
+    .toc-inline a{ display:inline-block; padding:6px 12px; border:1px solid var(--border); border-radius:999px; background:#fff; color:#334155; font-size:13px; box-shadow:0 6px 12px rgba(15,23,42,.06); }
+    .toc-inline a:focus,.toc-inline a:hover{ border-color:#c7d2fe; color:#1d4ed8; background:#eef2ff; outline:none }
+  </style>
+<style>
+/* === Center align from Awards (비용) downward + Certificates 4x2 === */
+.tib-figure,
+.tib-figure img { display:block; margin-left:auto; margin-right:auto; }
+.tib-figure { text-align:center; }
+
+/* Lists under awards/certs */
+h2 + ul, h2 + .tib-figure + ul { 
+  margin-left:auto; margin-right:auto; 
+  text-align:center; list-style-position:inside;
+}
+
+/* Certificates table -> center & fixed 4x2 visual */
+h2 + table, table { 
+  margin-left:auto; margin-right:auto; 
+  border-collapse:separate; border-spacing:16px 14px;
+}
+td.group { 
+  width:25%; 
+  text-align:center; 
+  vertical-align:top; 
+  padding:10px;
+}
+td.group figure { margin:0; }
+td.group img { 
+  display:block; 
+  margin:0 auto; 
+  max-width:100%; 
+  height:auto; 
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+td.group ul { margin:8px 0 0; padding:0; list-style:none; text-align:center; }
+td.group li b { font-weight:800; }
+
+/* General bottom container alignment */
+.page { display:block; }
+.page h2 { text-align:center; }
+
+  /* Breadcrumb just above carousel */
+  .breadcrumb{max-width:1200px;margin:8px auto 12px;padding:0 16px;color:#5f6b7a;font-size:14px;}
+  .breadcrumb a{color:#4a5bdc;text-decoration:none;}
+  .breadcrumb a:hover{text-decoration:underline;}
+
+</style><style id="history-leftalign-overrides">
+/* Scoped left-align for three sections */
+#history-card .content h2{ text-align:left !important; }
+#history-card .content h2 + ul{
+  text-align:left !important;
+  list-style-position:outside !important;
+  padding-left: 1.25rem;
+  margin-left: 0;
+}
+#history-card .content ul li{ margin: 6px 0; }
+</style><style id="breadcrumb-style-min">
+/* Breadcrumb minimal style */
+.breadcrumb{max-width:1200px;margin:8px auto 12px;padding:0 16px;color:#5f6b7a;font-size:14px;}
+.breadcrumb a{color:#4a5bdc;text-decoration:none;}
+.breadcrumb a:hover{text-decoration:underline;}
+</style></head>
+<body>
+<div id="mot-app">
+<!-- 헤더 -->
+<header class="mot-header" role="banner">
+<button aria-controls="mot-nav" aria-expanded="false" aria-label="메뉴 열기" class="nav-toggle">☰</button>
+<div class="inner">
+<a class="brand" href="../index.html">
+<img alt="MOT Logo" class="logo" src="../assets/logo.png"/>
+<span class="name">MOT</span></a>
+</div>
+<div class="lang-search">
+<select aria-label="언어 선택" id="lang">
+<option value="ko">Ko</option><option value="en">En</option><option value="cn">Cn</option>
+</select>
+<input aria-label="검색" id="search" placeholder="검색" type="search"/>
+</div>
+</header>
+<!-- 빵틀 네비게이션 -->
+<nav aria-label="주 메뉴" class="mot-nav" id="mot-nav">
+<ul class="menu">
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">회사소개</button>
+<ul class="submenu">
+<li><a href="intro.html">소개</a></li>
+<li><a href="vision.html">비전·철학</a></li>
+<li><a href="history.html">연혁·약력</a></li>
+<li><a href="book.html">저서·자격</a></li>
+</ul>
+</li>
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">사업·서비스</button>
+<ul class="submenu">
+<li><a href="projects.html">추진사업</a></li>
+<li><a href="newbiz.html">신규사업·기획</a></li>
+<li><a href="rnd.html">연구·개발</a></li>
+<li><a href="digitaldesign.html">디지털디자인</a></li>
+<li><a href="systib.html">Sys TIB·개발체제</a></li>
+</ul>
+</li>
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">콘텐츠·활동</button>
+<ul class="submenu">
+<li><a href="lecture.html">강의·콘텐츠</a></li>
+<li><a href="solobiz.html">1인 지식창업</a></li>
+<li><a href="twelve.html">12M 신규사업</a></li>
+</ul>
+</li>
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">자료실</button>
+<ul class="submenu">
+<li><a href="cost.html">예상비용</a></li>
+<li><a href="videos.html">동영상 자료</a></li>
+<li><a href="news.html">오늘의 주가 경제뉴스</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+<!-- HERO: 화면 끝까지(Full-bleed) 캐러셀 -->
+<section aria-label="메인 이미지 캐러셀" class="hc-slider hc-fullbleed">
+<button aria-label="이전" class="hc-prev">‹</button>
+<div class="hc-track">
+<figure class="hc-slide">
+<img alt="slide 1" src="../assets/main1.JPG"/>
+<figcaption class="hc-caption">인공지능 시대를 선도하는 컨설팅!</figcaption>
+</figure>
+<figure class="hc-slide">
+<img alt="slide 2" src="../assets/main2.JPG"/>
+<figcaption class="hc-caption">미래의 친환경 사업을 확대 할 수 있는 컨설팅!</figcaption>
+</figure>
+<figure class="hc-slide">
+<img alt="slide 3" src="../assets/main3.JPG"/>
+<figcaption class="hc-caption">가족과 함께 행복을 추구하는 컨설팅!</figcaption>
+</figure>
+</div>
+<button aria-label="다음" class="hc-next">›</button>
+<div class="hc-dots"></div>
+</section>
+<div aria-label="바로가기" class="toc-inline">
+<a href="#process">프로세스 구축 및 경영혁신 활동</a>
+<a href="#core">핵심 개발·공헌</a>
+</div>
+<main class="wrap">
+<section id="history-card">
+<div class="content">
+<h2>약력</h2>
+<ul>
+<li>2021 ~ Pantum Co. Ltd. 기술 고문</li>
+<li>2019 ~ Global Scout Co. Ltd 상무</li>
+<li>2016 ~ M.O.T (Management Of Technology) Consulting 대표</li>
+<li>2011.03 ~ 2015.10: 삼성전자㈜ Printing사업부 / 개발팀 / System Architecture</li>
+<li>2003.02 ~ 2011.02: 삼성전자㈜ Printing사업부 / 개발팀 (현상Lab)</li>
+<li>2000.04 ~ 2003.01: 삼성전자㈜ Printing사업부 / 개발팀 (개발3그룹)</li>
+<li>1994.04 ~ 2000.03: Fuji Xerox㈜ 기술연구소 / 프로세스개발팀</li>
+<li>1993.10 ~ 1994.03: Fuji Xerox㈜ 기술연구소 / 부품개발팀</li>
+<li>1992.12 ~ 1993.09: Fuji Xerox㈜ 기술연구소 / 제조기술팀 / 금형파트</li>
+</ul>
+<h2 id="process">프로세스 구축 및 경영혁신 활동</h2>
+<ul>
+<li>2014~2015: <b>Modula Design</b> 추진으로 연간 손익 개선 효과 <i>(최소)</i> 250억 원 이상 기여</li>
+<li>2013~2014: <b>Digital Design System</b> 전사 프로세스 구축 및 실행 – “설계프로세스 개선”</li>
+<li>2011~2012: <b>도면 품질 관리 표준화 시스템</b> 구축 – 제도법·설계법·공차설계 등 “기구설계가이드” 정립</li>
+</ul>
+<h2 id="core">핵심 개발·공헌</h2>
+<ul>
+<li>삼성 최초 고속 복합기 및 프린터 개발을 통한 경영 기여 및 선진화</li>
+<li>핵심 부품 개발 및 장수명화: <b>OPC, Charge Roller, Cleaning Blade, Magnet Roller</b></li>
+<li>Press / Plastic 금형 기술 설계·제작 역량 강화</li>
+<li>특허 출원 40건(원천 해외특허 10건)</li>
+</ul>
+</div></section>
+</main>
+<!-- Footer -->
+<footer class="mot-footer" role="contentinfo">
+<small>ⓒ M.O.T. All rights reserved.</small>
+</footer></div>
+
+<script id="mot-accordion-inline-fix-v2">
+(function(){
+  if (window.__motAccordionFixedV2) return;
+  window.__motAccordionFixedV2 = true;
+
+  // Drawer toggle (hamburger) for .nav-toggle / #mot-nav
+  try{
+    var root = document.getElementById('mot-app') || document.body;
+    var drawer = root ? (root.querySelector('#mot-nav') || root.querySelector('.mot-nav')) : null;
+    var toggle = root ? root.querySelector('.nav-toggle') : null;
+    if (drawer && toggle){
+      toggle.addEventListener('click', function(){
+        var open = drawer.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      }, {passive:true});
+    }
+  }catch(e){}
+
+  // Accordion: clicking .menu-btn toggles closest .menu-item[aria-expanded]
+  try{
+    var btns = document.querySelectorAll('#mot-nav .menu-btn');
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var li = btn.closest('.menu-item');
+        if(!li) return;
+        var open = li.getAttribute('aria-expanded') === 'true';
+
+        // close others
+        document.querySelectorAll('#mot-nav .menu-item[aria-expanded="true"]').forEach(function(o){
+          if(o !== li){
+            o.setAttribute('aria-expanded','false');
+            var b=o.querySelector(':scope > .menu-btn'); if(b) b.setAttribute('aria-expanded','false');
+          }
+        });
+
+        // toggle current
+        li.setAttribute('aria-expanded', String(!open));
+        btn.setAttribute('aria-expanded', String(!open));
+      }, {passive:false});
+    });
+
+    // Allow submenu links to work without collapsing parents
+    document.querySelectorAll('#mot-nav .submenu a').forEach(function(a){
+      a.addEventListener('click', function(ev){ ev.stopPropagation(); });
+    });
+  }catch(e){}
+})();
+</script><script id="breadcrumb-injector-v3">
+(function(){
+  if (document.querySelector('.breadcrumb')) return;
+  var label = '약력';
+  var bc = document.createElement('div');
+  bc.className = 'breadcrumb';
+  bc.innerHTML = '<a href="../index.html">Home</a> &nbsp;›&nbsp; <span>' + label + '</span>';
+  var slider = document.querySelector('.hc-slider, .mot-carousel');
+  if (slider && slider.parentNode) {
+    slider.parentNode.insertBefore(bc, slider);
+  } else {
+    var main = document.querySelector('main.wrap') || document.body;
+    main.insertBefore(bc, main.firstChild);
+  }
+})();</script><script id="hc-slider-init-v1">
+(function(){
+  // Lightweight carousel initializer (no global pollution)
+  var root = document.querySelector('.hc-slider');
+  if(!root) return;
+  var track = root.querySelector('.hc-track');
+  var slides = Array.prototype.slice.call(root.querySelectorAll('.hc-slide'));
+  if(!track || slides.length === 0) return;
+
+  var prevBtn = root.querySelector('.hc-prev');
+  var nextBtn = root.querySelector('.hc-next');
+  var dotsWrap = root.querySelector('.hc-dots');
+
+  var index = 0;
+  function go(i){
+    index = (i + slides.length) % slides.length;
+    track.style.transform = 'translateX(' + (-100 * index) + '%)';
+    if (dotsWrap){
+      [].forEach.call(dotsWrap.children, function(d, di){
+        d.setAttribute('aria-current', di === index ? 'true' : 'false');
+      });
+    }
+  }
+
+  // build dots once
+  if (dotsWrap && dotsWrap.children.length === 0){
+    slides.forEach(function(_, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.addEventListener('click', function(){ go(i); });
+      dotsWrap.appendChild(b);
+    });
+  }
+
+  if (prevBtn){ prevBtn.addEventListener('click', function(){ go(index - 1); }); }
+  if (nextBtn){ nextBtn.addEventListener('click', function(){ go(index + 1); }); }
+
+  // optional auto-play (can be disabled by setting data-auto="false")
+  var autoplay = root.getAttribute('data-auto') !== 'false';
+  var timer = null;
+  function start(){ if(autoplay){ timer = setInterval(function(){ go(index + 1); }, 5000);} }
+  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+  start();
+  go(0);
+})();</script>
+
+
+
+<script src="../js/lang-switch.js"></script>
+
+</body>
+</html>

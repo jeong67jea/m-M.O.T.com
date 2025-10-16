@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+<title>MOT · Mobile</title>
+<!-- TOC pills -->
+<style>
+    .toc-inline{ position: sticky; top:6px; z-index:6; max-width:1200px; margin:0 auto 10px; padding:0 16px; display:flex; gap:8px; flex-wrap:wrap; }
+    .toc-inline a{ display:inline-block; padding:6px 12px; border:1px solid var(--border); border-radius:999px; background:#fff; color:#334155; font-size:13px; box-shadow:0 6px 12px rgba(15,23,42,.06); }
+    .toc-inline a:focus,.toc-inline a:hover{ border-color:#c7d2fe; color:#1d4ed8; background:#eef2ff; outline:none }
+  </style>
+<!-- /intro.html 기준 -->
+<link href="../css/mot-mobile.css" rel="stylesheet"/>
+<!-- Fallback styles (accordion + carousel) -->
+<style>
+    /* === Breadbox / Accordion === */
+    #mot-nav .menu > .menu-item > .submenu { display:none !important; }
+    #mot-nav .menu > .menu-item[aria-expanded="true"] > .submenu { display:block !important; }
+
+    #mot-nav .menu-btn{
+      display:flex; align-items:center; justify-content:space-between;
+      width:100%; padding:14px 16px; border:0; background:#fff;
+      font-size:18px; font-weight:800; cursor:pointer;
+      pointer-events:auto; position:relative; z-index:1; /* ensure clickable */
+    }
+    #mot-nav .menu-btn::after{ content:"▾"; transition:transform .2s ease; }
+    #mot-nav .menu-item[aria-expanded="true"] > .menu-btn::after{ transform:rotate(180deg); }
+
+    #mot-nav ul{ list-style:none; margin:0; padding:0; }
+    #mot-nav .menu{ display:flex; flex-direction:column; gap:12px; }
+    #mot-nav .menu-item{ border:1px solid #e8edf4; border-radius:16px; background:#fff; overflow:hidden; }
+
+    /* === Hero / Carousel === */
+    .hc-fullbleed{
+      width:100vw; position:relative;
+      left:50%; right:50%; margin-left:-50vw; margin-right:-50vw;
+    }
+    .hc-slider{
+      position:relative; overflow:hidden;
+      height:360px; min-height:360px;
+      background:transparent;
+      border-radius:18px; box-shadow:0 14px 40px rgba(0,0,0,.14);
+    }
+    .hc-track{ display:flex; height:100%; transition:transform .4s ease; will-change:transform; }
+    .hc-slide{ position:relative; margin:0; flex:0 0 100%; min-width:100%; height:100%; backface-visibility:hidden; transform:translateZ(0); }
+    .hc-slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Caption: top-center */
+    .hc-caption{
+      position:absolute; top:14px; left:50%; transform:translateX(-50%);
+      z-index:2; color:#fff; font-weight:800; text-align:center;
+      font-size:clamp(18px, 2.4vw, 28px); line-height:1.25;
+      text-shadow:0 2px 4px rgba(0,0,0,.35);
+      padding:8px 14px; border-radius:999px; background:rgba(0,0,0,.25);
+      white-space:nowrap; max-width:96%; overflow:hidden; text-overflow:ellipsis;
+      pointer-events:none;
+    }
+
+    .hc-prev,.hc-next{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:38px; height:38px; border:0; border-radius:12px;
+      background:rgba(0,0,0,.35); color:#fff; cursor:pointer; z-index:3;
+      display:grid; place-items:center;
+    }
+    .hc-prev{ left:12px; } .hc-next{ right:12px; }
+
+    .hc-dots{ position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:flex; gap:8px; z-index:3; }
+    .hc-dots button{ width:8px; height:8px; border:0; border-radius:50%; background:rgba(255,255,255,.6); cursor:pointer; }
+    .hc-dots button[aria-current="true"]{ background:#fff; }
+
+    /* === Page content card === */
+    :root { --ink:#0b1320; --muted:#5f6b7a; --border:#e6e9f0; }
+    html,body{ margin:0; color:var(--ink); background:#fafbfe; line-height:1.6;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif; }
+    main.wrap{ max-width:1200px; margin:24px auto 64px; padding:0 16px; }
+    .panel{
+      background:#fff; border:1px solid #e6e9f0; border-radius:16px;
+      box-shadow:0 16px 50px rgba(0,0,0,.10);
+      padding:clamp(18px,3vw,28px); position:relative; overflow:hidden;
+    }
+    .content{ max-width:720px; margin:0 auto; padding-right:clamp(160px,22vw,320px); }
+    .content h1{ font-size:clamp(28px, 4vw, 36px); margin:8px 0 10px; }
+    .sub{ color:#5f6b7a; font-weight:600; margin:0 0 18px; }
+    .corner-img{
+      position:absolute; right:clamp(18px,3vw,28px); bottom:clamp(18px,3vw,28px);
+      width:clamp(160px, 22vw, 320px); max-width:38%;
+      height:auto; display:block; border-radius:10px;
+      box-shadow:0 8px 24px rgba(0,0,0,.10);
+    }
+    @media (max-width:640px){
+      .content{ padding-right:clamp(120px,34vw,180px); }
+      .corner-img{ width:clamp(120px, 34vw, 180px); }
+    }
+  </style>
+<style>
+/* === Center align from Awards (비용) downward + Certificates 4x2 === */
+.tib-figure,
+.tib-figure img { display:block; margin-left:auto; margin-right:auto; }
+.tib-figure { text-align:center; }
+
+/* Lists under awards/certs */
+h2 + ul, h2 + .tib-figure + ul { 
+  margin-left:auto; margin-right:auto; 
+  text-align:center; list-style-position:inside;
+}
+
+/* Certificates table -> center & fixed 4x2 visual */
+h2 + table, table { 
+  margin-left:auto; margin-right:auto; 
+  border-collapse:separate; border-spacing:16px 14px;
+}
+td.group { 
+  width:25%; 
+  text-align:center; 
+  vertical-align:top; 
+  padding:10px;
+}
+td.group figure { margin:0; }
+td.group img { 
+  display:block; 
+  margin:0 auto; 
+  max-width:100%; 
+  height:auto; 
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+td.group ul { margin:8px 0 0; padding:0; list-style:none; text-align:center; }
+td.group li b { font-weight:800; }
+
+/* General bottom container alignment */
+.page { display:block; }
+.page h2 { text-align:center; }
+
+  /* Breadcrumb just above carousel */
+  .breadcrumb{max-width:1200px;margin:8px auto 12px;padding:0 16px;color:#5f6b7a;font-size:14px;}
+  .breadcrumb a{color:#4a5bdc;text-decoration:none;}
+  .breadcrumb a:hover{text-decoration:underline;}
+
+</style></head>
+<body>
+<div id="mot-app">
+<!-- 헤더 -->
+<header class="mot-header" role="banner">
+<button aria-controls="mot-nav" aria-expanded="false" aria-label="메뉴 열기" class="nav-toggle">☰</button>
+<div class="inner">
+<a class="brand" href="../index.html">
+<img alt="MOT Logo" class="logo" src="../assets/logo.png"/>
+<span class="name">MOT</span></a>
+</div>
+<div class="lang-search">
+<select aria-label="언어 선택" id="lang">
+<option value="ko">Ko</option><option value="en">En</option><option value="cn">Cn</option>
+</select>
+<input aria-label="검색" id="search" placeholder="검색" type="search"/>
+</div>
+</header>
+<!-- 빵틀 네비게이션 -->
+<nav aria-label="주 메뉴" class="mot-nav" id="mot-nav">
+<ul class="menu">
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">회사소개</button>
+<ul class="submenu">
+<li><a href="intro.html">소개</a></li>
+<li><a href="vision.html">비전·철학</a></li>
+<li><a href="history.html">연혁·약력</a></li>
+<li><a href="book.html">저서·자격</a></li>
+</ul>
+</li>
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">사업·서비스</button>
+<ul class="submenu">
+<li><a href="projects.html">추진사업</a></li>
+<li><a href="newbiz.html">신규사업/기획</a></li>
+<li><a href="rnd.html">연구·개발</a></li>
+<li><a href="digitaldesign.html">디지털디자인</a></li>
+<li><a href="systib.html">Sys TIB·개발체제</a></li>
+</ul>
+</li>
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">콘텐츠·활동</button>
+<ul class="submenu">
+<li><a href="lecture.html">강의·콘텐츠</a></li>
+<li><a href="solobiz.html">1인 지식창업</a></li>
+<li><a href="twelve.html">12M 신규사업</a></li>
+</ul>
+</li>
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">자료실</button>
+<ul class="submenu">
+<li><a href="cost.html">예상비용</a></li>
+<li><a href="videos.html">동영상 자료</a></li>
+<li><a href="news.html">오늘의 주가 경제뉴스</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+<!-- HERO: 화면 끝까지(Full-bleed) 캐러셀 -->
+<section aria-label="메인 이미지 캐러셀" class="hc-slider hc-fullbleed">
+<button aria-label="이전" class="hc-prev">‹</button>
+<div class="hc-track">
+<figure class="hc-slide">
+<img alt="slide 1" src="../assets/main1.JPG"/>
+<figcaption class="hc-caption">인공지능 시대를 선도하는 컨설팅!</figcaption>
+</figure>
+<figure class="hc-slide">
+<img alt="slide 2" src="../assets/main2.JPG"/>
+<figcaption class="hc-caption">미래의 친환경 사업을 확대 할 수 있는 컨설팅!</figcaption>
+</figure>
+<figure class="hc-slide">
+<img alt="slide 3" src="../assets/main3.JPG"/>
+<figcaption class="hc-caption">가족과 함께 행복을 추구하는 컨설팅!</figcaption>
+</figure>
+</div>
+<button aria-label="다음" class="hc-next">›</button>
+<div class="hc-dots"></div>
+</section>
+<div aria-label="바로가기" class="toc-inline">
+<a href="#he">핵심역량</a>
+<a href="#y">역사</a> </div>
+<!-- 본문 카드 -->
+<main class="wrap">
+<section class="panel">
+<div class="content">
+<h1>소개</h1>
+<p class="sub">M.O.T · Since 2016.05</p>
+<p>
+          프린팅 시스템의 디지털 설계 프로세스와 표준화를 기반으로, 개발부터 양산까지 전 주기의 생산성 혁신과 품질 안정화를 구현합니다.
+          “지식·기술·경영(MOT)”의 통합을 통해 핵심 소재·부품(예: OPC, Charge Roller, Cleaning Blade, Magnet Roller)의 장수명화와 제품 경쟁력 강화를 목표로 합니다.
+        </p>
+<h3 id="he">핵심역량</h3>
+<ul><li>디지털 설계 프로세스 / 도면·공차 표준 / QA 설계 / 개발–생산 통합</li></ul>
+<h3>성과</h3>
+<ul><li>고속 프린터·복합기 개발, 핵심 소모품 장수명화, 프로세스 혁신</li></ul>
+<h3 id="y">역사</h3>
+<ul><li>Since 2016.05 (법인/브랜드 기준)</li></ul>
+</div>
+<img alt="Intro image" class="corner-img" src="../assets/intro.png"/>
+</section>
+</main>
+<!-- Footer -->
+<div><footer class="mot-footer" role="contentinfo">
+<small>ⓒ M.O.T. All rights reserved.</small>
+</footer> </div>
+<script>
+(function(){
+  const main = document.querySelector('.page');
+  if(!main) return;
+  const h2 = main.querySelector('.section h2');
+  if(h2){
+    const bc = document.createElement('div');
+    bc.className = 'breadcrumb';
+    bc.innerHTML = `<a href="../index.html">Home</a> &nbsp;›&nbsp; <span>${h2.textContent}</span>`;
+    const hero = document.querySelector('#mot-app .hc-slider'); if(hero){ hero.parentNode.insertBefore(bc, hero); }
+  }
+  const heads = main.querySelectorAll('.section h3, .section h4');
+  if(heads.length){
+    const toc = document.createElement('nav');
+    toc.className = 'toc-inline';
+    heads.forEach((el,i)=>{
+      const id = el.id || ('h-' + i);
+      el.id = id;
+      const a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = el.textContent;
+      toc.appendChild(a);
+    });
+    document.body.insertBefore(toc, main);
+  }
+})();
+</script>
+<script>
+(function(){
+  const car = document.querySelector('.hero .carousel');
+  if(!car) return;
+  const track = car.querySelector('.track');
+  const slides = Array.from(track.children);
+  let idx = 0, N = slides.length, timer=null;
+  function go(i){
+    idx = (i+N)%N;
+    track.style.transform = `translateX(-${idx*100}vw)`;
+    dots.forEach((d,k)=>d.classList.toggle('active', k===idx));
+  }
+  const prev = car.querySelector('.prev'), next=car.querySelector('.next');
+  prev.addEventListener('click', ()=>{ go(idx-1); reset(); });
+  next.addEventListener('click', ()=>{ go(idx+1); reset(); });
+  const dots = Array.from(car.querySelectorAll('.dots button'));
+  dots.forEach((d,i)=> d.addEventListener('click', ()=>{ go(i); reset(); }));
+  function tick(){ go(idx+1); }
+  function reset(){ clearInterval(timer); timer=setInterval(tick, 4000); }
+  timer=setInterval(tick, 4000);
+  window.addEventListener('blur', ()=>clearInterval(timer));
+  window.addEventListener('focus', reset);
+  go(0);
+})();
+</script>
+<script>
+(function(){
+  const car = document.querySelector('.hero .carousel');
+  if(!car) return;
+  const track = car.querySelector('.track');
+  const slides = Array.from(track.children);
+  let idx = 0, N = slides.length, timer=null;
+  function go(i){
+    idx = (i+N)%N;
+    track.style.transform = `translateX(-${idx*100}vw)`;
+    dots.forEach((d,k)=>d.classList.toggle('active', k===idx));
+  }
+  const prev = car.querySelector('.prev'), next=car.querySelector('.next');
+  prev && prev.addEventListener('click', ()=>{ go(idx-1); reset(); });
+  next && next.addEventListener('click', ()=>{ go(idx+1); reset(); });
+  const dots = Array.from(car.querySelectorAll('.dots button'));
+  dots.forEach((d,i)=> d.addEventListener('click', ()=>{ go(i); reset(); }));
+  function tick(){ go(idx+1); }
+  function reset(){ clearInterval(timer); timer=setInterval(tick, 4000); }
+  timer=setInterval(tick, 4000);
+  window.addEventListener('blur', ()=>clearInterval(timer));
+  window.addEventListener('focus', reset);
+  go(0);
+})();
+</script>
+<script>
+// === Auto: Lightweight Slider (offline) ===
+(function(){
+  function Slider(root){
+    this.root=root;
+    this.track=root.querySelector('.hc-track');
+    this.slides=[...root.querySelectorAll('.hc-slide')];
+    this.dots=root.querySelector('.hc-dots');
+    this.idx=0; this.timer=null; this.interval=4000;
+    this.bind();
+    this.go(0);
+    this.auto();
+  }
+  Slider.prototype.bind=function(){
+    var self=this;
+    var prev=this.root.querySelector('.hc-prev');
+    var next=this.root.querySelector('.hc-next');
+    if(prev) prev.addEventListener('click', function(){ self.prev(); self.auto(); });
+    if(next) next.addEventListener('click', function(){ self.next(); self.auto(); });
+    this.dots.querySelectorAll('.hc-dot').forEach(function(dot,i){
+      dot.addEventListener('click', function(){ self.go(i); self.auto(); });
+    });
+    this.root.addEventListener('mouseenter', function(){ self.stop(); });
+    this.root.addEventListener('mouseleave', function(){ self.auto(); });
+    var startX=null;
+    this.root.addEventListener('touchstart', function(e){ startX=e.touches[0].clientX; self.stop(); },{passive:true});
+    this.root.addEventListener('touchend', function(e){
+      if(startX===null) return;
+      var dx=(e.changedTouches[0].clientX-startX);
+      if(Math.abs(dx)>40){ dx<0?self.next():self.prev(); }
+      self.auto();
+      startX=null;
+    });
+  };
+  Slider.prototype.updateDots=function(){
+    var dots=this.dots.querySelectorAll('.hc-dot');
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===this.idx); }, this);
+  };
+  Slider.prototype.go=function(i){
+    if(!this.slides.length) return;
+    this.idx=(i+this.slides.length)%this.slides.length;
+    this.track.style.transform='translateX(' + (-100*this.idx) + '%)';
+    this.updateDots();
+  };
+  Slider.prototype.next=function(){ this.go(this.idx+1); };
+  Slider.prototype.prev=function(){ this.go(this.idx-1); };
+  Slider.prototype.stop=function(){ if(this.timer){ clearInterval(this.timer); this.timer=null; } };
+  Slider.prototype.auto=function(){ this.stop(); var self=this; this.timer=setInterval(function(){ self.next(); }, this.interval); };
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.hc-slider').forEach(function(el){ new Slider(el); });
+  });
+})();
+</script>
+<script>
+function siteSearch(e){
+  e.preventDefault();
+  var input = e.target.querySelector('input[type="search"]');
+  var q = (input && input.value) ? input.value.trim() : "";
+  if(!q){ if(input) input.focus(); return false; }
+  var base = (location.protocol.startsWith('http')) ? ('site:' + location.host + ' ') : '';
+  var url = 'https://www.google.com/search?q=' + encodeURIComponent(base + q);
+  window.open(url, '_blank');
+  return false;
+}
+</script>
+<script id="hc-slider-js">
+/* === Simple Slider JS === */
+(function(){
+  document.querySelectorAll('.hc-slider').forEach(function(slider){
+    var track = slider.querySelector('.hc-track');
+    var slides = Array.from(slider.querySelectorAll('.hc-slide'));
+    var idx = 0, timer = null;
+
+    function go(i){
+      idx = (i + slides.length) % slides.length;
+      track.style.transform = 'translateX(-'+ (idx*100) +'%)';
+      updateDots();
+    }
+    function makeDots(){
+      var dots = slider.querySelector('.hc-dots');
+      slides.forEach(function(_, i){
+        var b = document.createElement('button');
+        b.className = 'hc-dot';
+        b.addEventListener('click', function(){ go(i); });
+        dots.appendChild(b);
+      });
+    }
+    function updateDots(){
+      var dots = slider.querySelectorAll('.hc-dot');
+      dots.forEach(function(d, i){ d.classList.toggle('active', i===idx); });
+    }
+    slider.querySelector('.hc-prev')?.addEventListener('click', function(){ go(idx-1); });
+    slider.querySelector('.hc-next')?.addEventListener('click', function(){ go(idx+1); });
+    makeDots(); go(0);
+    function start(){ timer = setInterval(function(){ go(idx+1); }, 5000); }
+    function stop(){ if(timer) clearInterval(timer); timer = null; }
+    slider.addEventListener('mouseenter', stop);
+    slider.addEventListener('mouseleave', start);
+    start();
+  });
+})();
+</script>
+<script>
+(function(){
+  function setupToggles(){
+    var anchors = document.querySelectorAll('header.navbar .menu > li > a');
+    anchors.forEach(function(a){
+      var li = a.parentElement;
+      if (!li) return;
+      var submenu = li.querySelector(':scope > .submenu');
+      if (!submenu) return;
+      a.setAttribute('aria-haspopup','true');
+      a.setAttribute('aria-expanded','false');
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var isOpen = li.classList.toggle('open');
+        a.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        // close siblings
+        li.parentElement.querySelectorAll(':scope > li.open').forEach(function(sib){
+          if (sib !== li){ 
+            sib.classList.remove('open'); 
+            var btn = sib.querySelector(':scope > a[aria-expanded]');
+            if (btn) btn.setAttribute('aria-expanded','false');
+          }
+        });
+      });
+    });
+  }
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('header.navbar')){
+      document.querySelectorAll('header.navbar .menu li.open').forEach(function(li){
+        li.classList.remove('open');
+        var a = li.querySelector(':scope > a[aria-expanded]');
+        if (a) a.setAttribute('aria-expanded','false');
+      });
+    }
+  });
+  document.addEventListener('DOMContentLoaded', setupToggles);
+})();
+</script>
+<script>
+// Click-toggle submenu with outside-click close (mobile/touch friendly)
+(function(){
+  function setup(){
+    var items = document.querySelectorAll('header.navbar .menu > li');
+    items.forEach(function(li){
+      var a = li.querySelector(':scope > a');
+      var sub = li.querySelector(':scope > .submenu');
+      if (!a || !sub) return;
+      a.setAttribute('aria-haspopup','true');
+      a.setAttribute('aria-expanded','false');
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var open = li.classList.toggle('open');
+        a.setAttribute('aria-expanded', open ? 'true' : 'false');
+        items.forEach(function(other){
+          if (other !== li){ 
+            other.classList.remove('open');
+            var btn = other.querySelector(':scope > a[aria-expanded]');
+            if (btn) btn.setAttribute('aria-expanded','false');
+          }
+        });
+      });
+    });
+  }
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('header.navbar')){
+      document.querySelectorAll('header.navbar .menu li.open').forEach(function(li){
+        li.classList.remove('open');
+        var a = li.querySelector(':scope > a[aria-expanded]');
+        if (a) a.setAttribute('aria-expanded','false');
+      });
+    }
+  });
+  document.addEventListener('DOMContentLoaded', setup);
+})();
+</script>
+<script>
+// Robust fixed-position submenu that overlays carousel; outside click closes.
+// Also unify hero headline+subtitle into one caption box (KO/EN/CN).
+(function(){
+  function setupSubmenu(){
+    const header = document.querySelector('header.navbar');
+    const items = Array.from(document.querySelectorAll('header.navbar .menu > li'));
+    function closeAll(){
+      items.forEach(li => {
+        li.classList.remove('open');
+        const sub = li.querySelector(':scope > .submenu');
+        if (sub){ sub.style.position=''; sub.style.top=''; sub.style.left=''; sub.style.minWidth=''; sub.style.zIndex=''; }
+        const a = li.querySelector(':scope > a[aria-expanded]');
+        if (a){ a.setAttribute('aria-expanded','false'); }
+      });
+    }
+    items.forEach(li => {
+      const a = li.querySelector(':scope > a');
+      const sub = li.querySelector(':scope > .submenu');
+      if (!a || !sub) return;
+      a.setAttribute('aria-haspopup','true');
+      a.setAttribute('aria-expanded','false');
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const willOpen = !li.classList.contains('open');
+        closeAll();
+        if (willOpen){
+          li.classList.add('open');
+          a.setAttribute('aria-expanded','true');
+          // position submenu fixed under the anchor
+          const rect = a.getBoundingClientRect();
+          const headerRect = header ? header.getBoundingClientRect() : {bottom:0};
+          sub.style.position = 'fixed';
+          sub.style.top = Math.round(headerRect.bottom) + 'px';
+          sub.style.left = Math.round(rect.left) + 'px';
+          sub.style.minWidth = Math.max(220, Math.round(rect.width)) + 'px';
+          sub.style.zIndex = '9000';
+        }
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('header.navbar')) closeAll();
+    });
+    window.addEventListener('resize', () => {
+      // recompute position for any open submenu
+      const open = document.querySelector('header.navbar .menu li.open');
+      if (open){
+        const a = open.querySelector(':scope > a');
+        const sub = open.querySelector(':scope > .submenu');
+        if (a && sub){
+          const rect = a.getBoundingClientRect();
+          const headerRect = header ? header.getBoundingClientRect() : {bottom:0};
+          sub.style.top = Math.round(headerRect.bottom) + 'px';
+          sub.style.left = Math.round(rect.left) + 'px';
+        }
+      }
+    });
+  }
+
+  function wrapHeroCaption(){
+    // Targets for KO/EN/CN
+    const pairs = [
+      { selH:'h1', textStarts:'미래를 선도하는', selP:'p', pStarts:'개발' },
+      { selH:'h1', textStarts:'Leading the Future', selP:'p', pStarts:'Devel' },
+      { selH:'h1', textStarts:'引领未来', selP:'p', pStarts:'从开发' }
+    ];
+    pairs.forEach(rule => {
+      const h = Array.from(document.querySelectorAll(rule.selH)).find(el => el.textContent.trim().startsWith(rule.textStarts));
+      if (!h) return;
+      // find next sibling p starting text
+      let p = h.nextElementSibling;
+      while(p && p.tagName.toLowerCase() !== 'p'){ p = p.nextElementSibling; }
+      if (!p || !p.textContent.trim().startsWith(rule.pStarts)) return;
+      if (h.parentElement && h.parentElement.classList.contains('hero-caption')) return;
+      // create wrapper
+      const wrap = document.createElement('div');
+      wrap.className = 'hero-caption';
+      h.parentElement.insertBefore(wrap, h);
+      wrap.appendChild(h);
+      wrap.appendChild(p);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    setupSubmenu();
+    wrapHeroCaption();
+  });
+})();
+</script>
+
+
+
+
+
+<style id="mobile-compact-nav-v6">
+@media (orientation: portrait), (max-width: 991.98px){
+  html{ font-size:14px !important; } body{ line-height:1.35 !important; }
+  header.navbar .inner{ display:flex !important; flex-wrap:nowrap !important; align-items:center !important; gap:8px !important;
+    overflow-x:auto !important; -webkit-overflow-scrolling:touch; white-space:nowrap !important; width:100% !important; max-width:100% !important; }
+  header.navbar .inner::-webkit-scrollbar{ display:none; }
+  header.navbar nav.primary{ flex:0 0 auto !important; }
+  header.navbar nav.primary .menu{ display:flex !important; flex-wrap:nowrap !important; gap:10px !important; }
+  header.navbar nav.primary .menu > li{ flex:0 0 auto !important; position:relative !important; }
+  header.navbar nav.primary .menu > li > a{ font-size:12px !important; padding:4px 6px !important; white-space:nowrap !important; }
+  header.navbar .lang{ display:flex !important; flex-direction:row !important; gap:6px !important; }
+  header.navbar .lang a{ font-size:11px !important; padding:4px 6px !important; width:auto !important; white-space:nowrap !important; }
+  header.navbar .site-search{ max-width:140px !important; }
+}
+@media (max-width: 360px){ header.navbar .site-search{ display:none !important; } }
+</style>
+<script id="mobile-submenu-toggle">
+(function(){
+  try{
+    var isTouch = window.matchMedia('(hover: none)').matches || ('ontouchstart' in window);
+    if(!isTouch) return;
+    var nav = document.querySelector('header.navbar nav.primary');
+    if(!nav) return;
+    var items = nav.querySelectorAll('.menu > li');
+    items.forEach(function(li){
+      var a = li.querySelector(':scope > a');
+      var submenu = li.querySelector(':scope > .submenu');
+      if(!a || !submenu) return;
+      a.addEventListener('click', function(e){
+        var href = (a.getAttribute('href')||'').trim();
+        if(href === '' || href === '#' || href === 'javascript:void(0)'){ e.preventDefault(); }
+        var isOpen = li.classList.contains('open');
+        items.forEach(function(other){ if(other!==li) other.classList.remove('open'); });
+        li.classList.toggle('open', !isOpen);
+      }, {passive:false});
+    });
+    document.addEventListener('click', function(evt){
+      var clickedInside = nav.contains(evt.target);
+      if(!clickedInside){ items.forEach(function(li){ li.classList.remove('open'); }); }
+    });
+  }catch(err){}
+})();
+</script>
+<style id="mot-mobile-compact-v1c">
+@media (max-width: 991.98px), (orientation: portrait){
+  /* Ensure header chain never clips the submenu */
+  header, .navbar, header.navbar{ overflow: visible !important; }
+  header.navbar{ position: sticky; top: 0; z-index: 100000 !important; background: inherit; }
+  header.navbar, header.navbar *{ -webkit-tap-highlight-color: transparent; }
+
+  /* 1) Single-row main menu with horizontal swipe when tight */
+  header.navbar .inner{
+    display:flex !important; flex-wrap:nowrap !important; align-items:center !important;
+    white-space:nowrap !important; overflow-x:auto !important; -webkit-overflow-scrolling:touch;
+    gap:8px !important;
+  }
+  header.navbar .inner::-webkit-scrollbar{ display:none; }
+  header.navbar nav.primary{ flex:0 0 auto !important; }
+  header.navbar nav.primary .menu{
+    display:flex !important; flex-wrap:nowrap !important; gap:10px !important; overflow:visible !important;
+  }
+  header.navbar nav.primary .menu > li{
+    flex:0 0 auto !important; position: relative !important; z-index: 100005 !important;
+  }
+
+  /* Main items compact */
+  header.navbar nav.primary .menu > li > a{
+    font-size: 11px !important;
+    padding: 6px 8px !important;
+    line-height: 18px !important; min-height: 32px !important;
+    display:flex !important; align-items:center !important; white-space:nowrap !important;
+    font-weight:600;
+  }
+
+  /* 2) Submenu overlay above everything on mobile */
+  header.navbar nav.primary .menu > li > .submenu{
+    position: absolute !important; top: 100% !important; left: 0 !important;
+    z-index: 100010 !important; background: #fff; border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 8px 22px rgba(0,0,0,.12); min-width: 180px; padding: 6px 0 !important;
+    display: none;
+  }
+  header.navbar nav.primary .menu > li.open > .submenu{ display: block !important; }
+
+  /* 2-1) Make sure hero/carousel stays underneath */
+  .hero, .carousel, .hero-slider, #hero, .slides, .swiper, .swiper-container{
+    position: relative; z-index: 1 !important;
+  }
+
+  /* 3) Submenu typography EXACTLY as v12_5, loaded LAST and forced */
+  header.navbar nav.primary .menu > li .submenu a,
+  header.navbar nav.primary .menu > li .submenu li > a{
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+    line-height: 18px !important;
+    white-space: nowrap !important; display: block !important;
+  }
+  header.navbar nav.primary .menu > li .submenu li + li a{
+    border-top: 1px solid rgba(0,0,0,.05) !important;
+  }
+}
+</style>
+<script id="mot-mobile-submenu-toggle-v1c">
+(function(){
+  try{
+    var isTouch = window.matchMedia('(hover: none)').matches || ('ontouchstart' in window);
+    if(!isTouch) return; // desktop untouched
+    var nav = document.querySelector('header.navbar nav.primary') || document.querySelector('header nav.primary') || document.querySelector('.navbar nav.primary');
+    if(!nav) return;
+    var items = nav.querySelectorAll('.menu > li');
+    items.forEach(function(li){
+      var a = li.querySelector(':scope > a');
+      var submenu = li.querySelector(':scope > .submenu');
+      if(!a || !submenu) return;
+      a.addEventListener('click', function(e){
+        var href = (a.getAttribute('href')||'').trim();
+        if(href === '' || href === '#' || href === 'javascript:void(0)'){ e.preventDefault(); }
+        var open = li.classList.contains('open');
+        items.forEach(function(o){ if(o!==li) o.classList.remove('open'); });
+        li.classList.toggle('open', !open);
+      }, {passive:false});
+    });
+    document.addEventListener('click', function(evt){
+      if(!nav.contains(evt.target)){
+        items.forEach(function(li){ li.classList.remove('open'); });
+      }
+    });
+  }catch(e){}
+})();
+</script>
+<!-- BEGIN: breadcrumb/TOC patcher (v2, conflict-safe) -->
+<script id="breadcrumb-patcher-v2">
+document.addEventListener('DOMContentLoaded', function(){
+  try{
+    // Choose the safest root container available
+    const root = document.querySelector('main.wrap') 
+              || document.querySelector('.page') 
+              || document.body;
+
+    // Title: prefer h1 then h2
+    const titleEl = root.querySelector('h1, h2');
+    const title = titleEl ? titleEl.textContent.trim() : '';
+
+    // Avoid duplicates if a breadcrumb already exists
+    if(!document.querySelector('.breadcrumb')){
+      const hero = document.querySelector('#mot-app .hc-slider');
+      if(hero && title){
+        const bc = document.createElement('nav');
+        bc.className = 'breadcrumb';
+        bc.setAttribute('aria-label','Breadcrumb');
+        bc.innerHTML = `<a href="index.html">Home</a> &nbsp;›&nbsp; <span>${title}</span>`;
+        hero.parentNode.insertBefore(bc, hero);
+      }
+    }
+
+    // Lightweight inline TOC from h3/h4, avoid duplicate
+    if(!document.querySelector('.toc-inline')){
+      const heads = root.querySelectorAll('h3, h4');
+      if(heads.length){
+        const toc = document.createElement('nav');
+        toc.className = 'toc-inline';
+        heads.forEach((el,i)=>{
+          const id = el.id || ('h-' + i);
+          el.id = id;
+          const a = document.createElement('a');
+          a.href = '#' + id;
+          a.textContent = el.textContent;
+          toc.appendChild(a);
+        });
+        document.body.insertBefore(toc, root);
+      }
+    }
+  }catch(e){
+    try{ console.warn('[breadcrumb-patcher]', e); }catch(_){}
+  }
+});
+</script>
+<!-- END: breadcrumb/TOC patcher -->
+</div><script id="mot-accordion-inline-fix-v2">
+(function(){
+  if (window.__motAccordionFixedV2) return;
+  window.__motAccordionFixedV2 = true;
+
+  // Drawer toggle (hamburger) for .nav-toggle / #mot-nav
+  try{
+    var root = document.getElementById('mot-app') || document.body;
+    var drawer = root ? (root.querySelector('#mot-nav') || root.querySelector('.mot-nav')) : null;
+    var toggle = root ? root.querySelector('.nav-toggle') : null;
+    if (drawer && toggle){
+      toggle.addEventListener('click', function(){
+        var open = drawer.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      }, {passive:true});
+    }
+  }catch(e){}
+
+  // Accordion: clicking .menu-btn toggles closest .menu-item[aria-expanded]
+  try{
+    var btns = document.querySelectorAll('#mot-nav .menu-btn');
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var li = btn.closest('.menu-item');
+        if(!li) return;
+        var open = li.getAttribute('aria-expanded') === 'true';
+
+        // close others
+        document.querySelectorAll('#mot-nav .menu-item[aria-expanded="true"]').forEach(function(o){
+          if(o !== li){
+            o.setAttribute('aria-expanded','false');
+            var b=o.querySelector(':scope > .menu-btn'); if(b) b.setAttribute('aria-expanded','false');
+          }
+        });
+
+        // toggle current
+        li.setAttribute('aria-expanded', String(!open));
+        btn.setAttribute('aria-expanded', String(!open));
+      }, {passive:false});
+    });
+
+    // Allow submenu links to work without collapsing parents
+    document.querySelectorAll('#mot-nav .submenu a').forEach(function(a){
+      a.addEventListener('click', function(ev){ ev.stopPropagation(); });
+    });
+  }catch(e){}
+})();
+</script>
+<script src="../js/lang-switch.js"></script>
+</body>
+</html>

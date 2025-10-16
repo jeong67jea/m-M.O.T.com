@@ -1,0 +1,72 @@
+/* Scope all rules under #mot-app to avoid global collisions */
+#mot-app { font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Noto Sans KR', sans-serif; color:#111; background:#fff; }
+#mot-app * { box-sizing: border-box; }
+
+/* Top header */
+#mot-app .mot-header {
+  position: sticky; top: 0; z-index: 1000;
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; background:#ffffffcc; backdrop-filter: saturate(1.2) blur(6px);
+  border-bottom: 1px solid #e6e6e6;
+}
+#mot-app .nav-toggle { font-size: 20px; line-height: 1; background:#f3f3f3; border:1px solid #ddd; border-radius:8px; padding:8px 10px; }
+#mot-app .brand { display:flex; align-items:center; gap:8px; min-width:0; }
+#mot-app .brand .logo { width:32px; height:32px; object-fit: contain; }
+#mot-app .brand .name { font-weight:700; font-size:18px; white-space:nowrap; }
+#mot-app .lang-search { margin-left:auto; display:flex; align-items:center; gap:6px; }
+#mot-app select#lang, #mot-app input#search {
+  height:32px; border:1px solid #ddd; border-radius:8px; padding:0 8px; font-size:14px;
+}
+#mot-app input#search { width:110px; }
+
+/* Nav (drawer) */
+#mot-app .mot-nav {
+  position: fixed; inset: 58px 0 auto 0; /* below header */
+  background:#fff; border-bottom:1px solid #eee;
+  transform: translateY(-120%); transition: transform .25s ease;
+  z-index: 999;
+}
+#mot-app .mot-nav.open { transform: translateY(0); }
+#mot-app .menu { list-style:none; margin:0; padding:6px 10px 12px; }
+#mot-app .menu-item { border:1px solid #eee; border-radius:10px; margin:8px 0; background:#fafafa; }
+#mot-app .menu-btn {
+  width:100%; text-align:left; background:transparent; padding:12px 14px; font-weight:700; font-size:16px; border:none;
+}
+#mot-app .submenu { display:none; list-style:none; margin:0; padding:0 0 10px 0; }
+#mot-app .submenu a { display:block; padding:10px 16px; color:#222; text-decoration:none; font-size:15px; }
+#mot-app .submenu a:active { background:#eef6ff; }
+
+/* Carousel */
+#mot-app .mot-carousel { position:relative; overflow:hidden; width:100vw; max-width:100vw; height:48vh; }
+#mot-app .mot-carousel .track { display:flex; height:100%; transition: transform .45s ease; }
+#mot-app .mot-carousel .slide { min-width:100%; height:100%; }
+#mot-app .mot-carousel img { width:100%; height:100%; object-fit:cover; image-rendering:auto; }
+#mot-app .mot-carousel button.prev,
+#mot-app .mot-carousel button.next {
+  position:absolute; top:50%; transform:translateY(-50%);
+  border:none; background:#00000055; color:#fff; width:36px; height:36px; border-radius:50%;
+}
+#mot-app .mot-carousel button.prev { left:8px; }
+#mot-app .mot-carousel button.next { right:8px; }
+#mot-app .mot-carousel .dots { position:absolute; left:0; right:0; bottom:8px; display:flex; justify-content:center; gap:6px; }
+#mot-app .mot-carousel .dot { width:6px; height:6px; border-radius:50%; background:#ffffff77; }
+#mot-app .mot-carousel .dot.active { background:#ffffff; }
+
+/* Hero */
+#mot-app .mot-hero { position:relative; width:100vw; max-width:100vw; height:150px;
+  display:flex; align-items:center; justify-content:center; overflow:hidden; }
+#mot-app .mot-hero .bg-capsules { position:absolute; inset:0; }
+#mot-app .mot-hero .title { position:relative; margin:0; font-size:20px; text-align:center; z-index:1; }
+#mot-app .accent-green { color:#0a7a5f; }
+
+/* Tagline */
+#mot-app .mot-tagline { padding:18px 16px; text-align:center; line-height:1.5; font-size:15px; }
+
+/* Footer */
+#mot-app .mot-footer { padding:16px; text-align:center; color:#555; border-top:1px solid #eee; }
+
+/* Prevent text/image auto shrink on small widths */
+@media (max-width: 420px) {
+  #mot-app .mot-carousel { height: 42vh; }
+  #mot-app .mot-hero { height: 140px; }
+}
