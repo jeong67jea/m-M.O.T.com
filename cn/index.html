@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>MOT · Mobile</title>
+  <link rel="stylesheet" href="../css/mot-mobile.css" />
+  <script defer src="../js/mot-mobile.js"></script>
+</head>
+<body>
+<div id="mot-app">
+  <!-- Top bar -->
+  <header class="mot-header" role="banner">
+    <button class="nav-toggle" aria-controls="mot-nav" aria-expanded="false" aria-label="메뉴 열기">☰</button>
+    <div><a class="brand" href="index.html"><img src="../assets/logo.png" alt="MOT Logo" class="logo" />
+ <span class="name">MOT</span></a>
+    </div>
+    <div class="lang-search">
+      <select id="lang" aria-label="언어 선택">
+        <option value="ko">Ko</option>
+        <option value="en">En</option>
+        <option value="cn">Cn</option>
+      </select>
+      <input type="search" id="search" placeholder="검색" aria-label="검색" />
+    </div>
+  </header>
+
+  <!-- Navigation (vertical, accordion submenus) -->
+  
+  <nav id="mot-nav" class="mot-nav" aria-label="주 메뉴">
+    <ul class="menu">
+      <li class="menu-item">
+        <button class="menu-btn" aria-expanded="false">公司·关于我们</button>
+        <ul class="submenu">
+<li><a href="intro.html">关于我们</a></li>
+<li><a href="vision.html">愿景与哲学</a></li>
+<li><a href="history.html">沿革·履历</a></li>
+<li><a href="book.html">著作∙资格认证</a></li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <button class="menu-btn" aria-expanded="false">业务与服务</button>
+        <ul class="submenu">
+<li><a href="projects.html">推进事业</a></li>
+<li><a href="newbiz.html">新业务∙商业规划</a></li>
+<li><a href="rnd.html">研发</a></li>
+<li><a href="digitaldesign.html">数字化设计</a></li>
+<li><a href="systib.html">系统TIB/开发体系</a></li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <button class="menu-btn" aria-expanded="false">内容与活动</button>
+        <ul class="submenu">
+<li><a href="lecture.html">讲座∙内容</a></li>
+<li><a href="solobiz.html">1人知识创业</a></li>
+<li><a href="twelve.html">12M新业务</a></li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <button class="menu-btn" aria-expanded="false">资料室</button>
+        <ul class="submenu">
+<li><a href="cost.html">预计费用</a></li>
+<li><a href="videos.html">视频资料</a></li>
+<li><a href="news.html">今日股票价格经济新闻</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- Carousel -->
+  <section class="mot-carousel" aria-label="홈 캐러셀">
+    <div class="track">
+          <img src="../assets/home-carousel/carousel_01.jpg" alt="slide 1" />
+    <img src="../assets/home-carousel/carousel_02.jpg" alt="slide 2" />
+<img src="../assets/home-carousel/carousel_03.jpg" alt="slide 3" />
+<img src="../assets/home-carousel/carousel_04.jpg" alt="slide 4" />
+<img src="../assets/home-carousel/carousel_05.jpg" alt="slide 5" />
+<img src="../assets/home-carousel/carousel_06.jpg" alt="slide 6" />
+<img src="../assets/home-carousel/carousel_07.jpg" alt="slide 7" />
+<img src="../assets/home-carousel/carousel_08.jpg" alt="slide 8" />
+<img src="../assets/home-carousel/carousel_09.jpg" alt="slide 9" />
+<img src="../assets/home-carousel/carousel_10.jpg" alt="slide 10" />
+    </div>
+    <button class="prev" aria-label="이전">‹</button>
+    <button class="next" aria-label="다음">›</button>
+    <div class="dots" aria-hidden="true"></div>
+    <noscript>
+    <style>.mot-carousel .track{display:flex;gap:8px;overflow:auto}</style>
+  </noscript>
+</section>
+
+
+
+
+  <!-- MOT Hero -->
+  <section aria-label="Leader of components" class="mot-hero">
+    <svg class="bg-capsules" viewBox="0 0 800 300" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0" stop-color="#0088ff"/>
+          <stop offset="1" stop-color="#f4faff"/>
+        </linearGradient>
+      </defs>
+      <rect width="800" height="300" fill="url(#g)"/>
+      <g opacity="0.3">
+        <ellipse cx="80" cy="60" rx="120" ry="18" transform="rotate(-20 80 60)"></ellipse>
+        <ellipse cx="380" cy="150" rx="160" ry="20" transform="rotate(-15 380 150)"></ellipse>
+        <ellipse cx="700" cy="80" rx="140" ry="16" transform="rotate(10 700 80)"></ellipse>
+        <ellipse cx="620" cy="240" rx="120" ry="18" transform="rotate(-12 620 240)"></ellipse>
+      </g>
+    </svg>
+    <h1 class="title"><span class="accent-blue"><h1>Management of technology</h1></span></h1>
+  </section>
+
+  <!-- Tagline -->
+  <section class="mot-tagline" aria-label="회사 소개 요약">
+    <p><h2>数字设计和标准化咨询引领未来</h2><br/>
+    发展 → 支持整个大规模生产过程的生产率提升和质量稳定。</p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mot-footer" role="contentinfo">
+    <small>ⓒ M.O.T. All rights reserved.</small>
+  </footer>
+</div>
+<script src="../js/lang-switch.js"></script>
+</body>
+</html>
