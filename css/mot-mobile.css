@@ -52,6 +52,22 @@
 #mot-app .mot-carousel .dot { width:6px; height:6px; border-radius:50%; background:#ffffff77; }
 #mot-app .mot-carousel .dot.active { background:#ffffff; }
 
+/* 캐러셀 컨테이너 */
+.mot-carousel { position: relative; overflow: hidden; }
+
+/* 트랙: 가로로 나열 + transform 애니메이션 */
+.mot-carousel .track,
+.hc-track { display:flex; transition: transform .5s ease; will-change: transform; }
+
+/* 각 슬라이드: JS가 min-width를 넣을 수 있게 기본 형식 */
+.mot-carousel .track > * ,
+.hc-track > * { flex:0 0 auto; }
+
+/* 이미지 기본 */
+.mot-carousel img { display:block; width:100%; height:auto; }
+
+
+
 /* Hero */
 #mot-app .mot-hero { position:relative; width:100vw; max-width:100vw; height:150px;
   display:flex; align-items:center; justify-content:center; overflow:hidden; }
@@ -70,3 +86,10 @@
   #mot-app .mot-carousel { height: 42vh; }
   #mot-app .mot-hero { height: 140px; }
 }
+
+
+.mot-carousel { position:relative; overflow:hidden; }
+.mot-carousel .track, .hc-track { display:flex; transition:transform .5s ease; will-change:transform; }
+.mot-carousel .track > *, .hc-track > * { flex:0 0 auto; }
+.mot-carousel img { display:block; width:100%; height:auto; }
+
