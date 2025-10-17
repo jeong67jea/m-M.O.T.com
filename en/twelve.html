@@ -221,7 +221,10 @@ td.group li b { font-weight:800; }
 <div class="page"><section class="section" id="planner">
 <section class="section">
 <h2>Discovery of new business (12M)</h2>
-<figure class="planner-figure"><img alt="신규사업 추진 Planner" src="../assets/12M1.JPG"/></figure></section></section></div>
+<figure class="tib-figure" style="display:flex;justify-content:center;margin:22px 0 6px;">
+<img alt="신규사업 추진 Planner" src="../assets/12M.JPG" style="width:60%;height:auto;display:block"/></figure>
+</section></section></div>
+    
 <div class="table-wrap">
 <table border="0px" class="tbl">
 <thead><tr><th id="he">Activity</th><th>Key Contents</th><th>Period (week)</th><th>W/D*</th></tr></thead>
@@ -590,22 +593,7 @@ function siteSearch(e){
 </script>
 
 
-<style id="mobile-compact-nav-v6">
-@media (orientation: portrait), (max-width: 991.98px){
-  html{ font-size:14px !important; } body{ line-height:1.35 !important; }
-  header.navbar .inner{ display:flex !important; flex-wrap:nowrap !important; align-items:center !important; gap:8px !important;
-    overflow-x:auto !important; -webkit-overflow-scrolling:touch; white-space:nowrap !important; width:100% !important; max-width:100% !important; }
-  header.navbar .inner::-webkit-scrollbar{ display:none; }
-  header.navbar nav.primary{ flex:0 0 auto !important; }
-  header.navbar nav.primary .menu{ display:flex !important; flex-wrap:nowrap !important; gap:10px !important; }
-  header.navbar nav.primary .menu > li{ flex:0 0 auto !important; position:relative !important; }
-  header.navbar nav.primary .menu > li > a{ font-size:12px !important; padding:4px 6px !important; white-space:nowrap !important; }
-  header.navbar .lang{ display:flex !important; flex-direction:row !important; gap:6px !important; }
-  header.navbar .lang a{ font-size:11px !important; padding:4px 6px !important; width:auto !important; white-space:nowrap !important; }
-  header.navbar .site-search{ max-width:140px !important; }
-}
-@media (max-width: 360px){ header.navbar .site-search{ display:none !important; } }
-</style>
+
 <script id="mobile-submenu-toggle">
 (function(){
   try{
@@ -633,64 +621,7 @@ function siteSearch(e){
   }catch(err){}
 })();
 </script>
-<style id="mot-mobile-compact-v1c">
-@media (max-width: 991.98px), (orientation: portrait){
-  /* Ensure header chain never clips the submenu */
-  header, .navbar, header.navbar{ overflow: visible !important; }
-  header.navbar{ position: sticky; top: 0; z-index: 100000 !important; background: inherit; }
-  header.navbar, header.navbar *{ -webkit-tap-highlight-color: transparent; }
 
-  /* 1) Single-row main menu with horizontal swipe when tight */
-  header.navbar .inner{
-    display:flex !important; flex-wrap:nowrap !important; align-items:center !important;
-    white-space:nowrap !important; overflow-x:auto !important; -webkit-overflow-scrolling:touch;
-    gap:8px !important;
-  }
-  header.navbar .inner::-webkit-scrollbar{ display:none; }
-  header.navbar nav.primary{ flex:0 0 auto !important; }
-  header.navbar nav.primary .menu{
-    display:flex !important; flex-wrap:nowrap !important; gap:10px !important; overflow:visible !important;
-  }
-  header.navbar nav.primary .menu > li{
-    flex:0 0 auto !important; position: relative !important; z-index: 100005 !important;
-  }
-
-  /* Main items compact */
-  header.navbar nav.primary .menu > li > a{
-    font-size: 11px !important;
-    padding: 6px 8px !important;
-    line-height: 18px !important; min-height: 32px !important;
-    display:flex !important; align-items:center !important; white-space:nowrap !important;
-    font-weight:600;
-  }
-
-  /* 2) Submenu overlay above everything on mobile */
-  header.navbar nav.primary .menu > li > .submenu{
-    position: absolute !important; top: 100% !important; left: 0 !important;
-    z-index: 100010 !important; background: #fff; border: 1px solid rgba(0,0,0,.08);
-    box-shadow: 0 8px 22px rgba(0,0,0,.12); min-width: 180px; padding: 6px 0 !important;
-    display: none;
-  }
-  header.navbar nav.primary .menu > li.open > .submenu{ display: block !important; }
-
-  /* 2-1) Make sure hero/carousel stays underneath */
-  .hero, .carousel, .hero-slider, #hero, .slides, .swiper, .swiper-container{
-    position: relative; z-index: 1 !important;
-  }
-
-  /* 3) Submenu typography EXACTLY as v12_5, loaded LAST and forced */
-  header.navbar nav.primary .menu > li .submenu a,
-  header.navbar nav.primary .menu > li .submenu li > a{
-    font-size: 12px !important;
-    padding: 6px 10px !important;
-    line-height: 18px !important;
-    white-space: nowrap !important; display: block !important;
-  }
-  header.navbar nav.primary .menu > li .submenu li + li a{
-    border-top: 1px solid rgba(0,0,0,.05) !important;
-  }
-}
-</style>
 <script id="mot-mobile-submenu-toggle-v1c">
 (function(){
   try{
