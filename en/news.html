@@ -892,30 +892,55 @@ function siteSearch(e){
 </footer>
 <script src="../js/lang-switch.js"></script>
 
-<style id="news-2of3-portrait-only">
-  /* 모바일 세로에서만: 하단 뉴스 래퍼를 2/3 폭 + 중앙 정렬(계산형 마진) */
+<style id="news-portrait-30vw-center">
+  /* 모바일 세로(포트레이트) 전용 */
   @media (orientation: portrait) and (max-width: 768px) {
-    #news-section > div {
-      display: block;
-      width: 66.6667%;
-      max-width: 66.6667%;
-      /* 오토마진 대신 계산형 마진으로 '진짜' 중앙 고정 */
-      margin-left: calc((100% - 66.6667%) / 2);
-      margin-right: calc((100% - 66.6667%) / 2);
-      /* 패딩이 시각적 치우침을 만들 수 있어 좌우 패딩만 0으로 */
+
+    /* 1) 부모: 패딩/float 영향 제거 및 중앙 기준 */
+    #news-section {
       padding-left: 0;
       padding-right: 0;
-      box-sizing: border-box;
-      float: none;         /* 혹시 남아 있는 float 영향 방지 */
+      float: none;
+      text-align: center;   /* 내부 inline-block 요소 중앙 */
     }
-    /* i-frame은 컨테이너 기준 100%로, 블록화 */
+
+    /* 2) 뉴스 래퍼 전체 폭을 30vw로 줄이기 */
+    #news-section > div,
+    #news-section .embed-wrap {
+      display: inline-block;
+      width: 30vw;        /* 화면의 30% */
+      max-width: 30vw;
+      vertical-align: top;
+    }
+
+    /* 3) iframe도 동일하게 30vw로 직접 지정 */
+    #news-section iframe,
     #newsFrame {
       display: block;
-      width: 100%;
-      max-width: 100%;
+      width: 30vw;        /* 실제 영상 크기 축소 */
+      max-width: 30vw;
+      height: auto !important;   /* 고정 height가 있다면 강제 auto */
+      margin: 0 auto;
+      border: 0;
+    }
+
+    /* 4) 텍스트도 30% 크기에 맞춰 전체적으로 축소 */
+    #news-section {
+      font-size: clamp(10px, 2.5vw, 13px);
+      line-height: 1.4;
+    }
+    #news-section h2,
+    #news-section h3 {
+      font-size: clamp(14px, 3.5vw, 18px);
+      line-height: 1.3;
+      margin: 0.5em 0 0.3em;
+    }
+    #news-section li {
+      margin: 0.3em 0;
     }
   }
 </style>
+
 
 
 </body></html>
