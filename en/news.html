@@ -892,51 +892,81 @@ function siteSearch(e){
 </footer>
 <script src="../js/lang-switch.js"></script>
 
-<style id="news-portrait-30vw-center">
-  /* 모바일 세로(포트레이트) 전용 */
+<style id="news-portrait-left-90vw">
+  /* 모바일 '세로' 전용: 왼쪽 정렬 + 90% 축소 */
   @media (orientation: portrait) and (max-width: 768px) {
 
-    /* 1) 부모: 패딩/float 영향 제거 및 중앙 기준 */
+    /* 상단 주가 뉴스 섹션 */
     #news-section {
+      text-align: left;     /* 왼쪽 맞춤 */
       padding-left: 0;
       padding-right: 0;
       float: none;
-      text-align: center;   /* 내부 inline-block 요소 중앙 */
     }
 
-    /* 2) 뉴스 래퍼 전체 폭을 30vw로 줄이기 */
-    #news-section > div,
-    #news-section .embed-wrap {
-      display: inline-block;
-      width: 30vw;        /* 화면의 30% */
-      max-width: 30vw;
-      vertical-align: top;
-    }
-
-    /* 3) iframe도 동일하게 30vw로 직접 지정 */
-    #news-section iframe,
-    #newsFrame {
+    /* 뉴스 래퍼 자체를 90vw로 축소 */
+    #news-section > div {
       display: block;
-      width: 30vw;        /* 실제 영상 크기 축소 */
-      max-width: 30vw;
-      height: auto !important;   /* 고정 height가 있다면 강제 auto */
-      margin: 0 auto;
+      width: 90vw;
+      max-width: 90vw;
+      margin: 0;            /* 왼쪽 붙임 */
+      padding-left: 0;
+      padding-right: 0;
+      box-sizing: border-box;
+      float: none;
+    }
+
+    /* iframe도 동일하게 90vw로 축소 */
+    #newsFrame,
+    #news-section iframe {
+      display: block;
+      width: 100vw;
+      max-width: 100vw;
+      height: auto;         /* 고정 height 있으면 무시하고 비율대로 */
+      margin: 0;            /* 왼쪽 붙임 */
       border: 0;
     }
 
-    /* 4) 텍스트도 30% 크기에 맞춰 전체적으로 축소 */
+    /* 하단 Daily-Top10 임베드 쪽도 동일 규칙 적용 */
+    section.viewport-center {
+      display: block;       /* 중앙 정렬 해제 */
+      padding-left: 0;
+      padding-right: 0;
+    }
+    section.viewport-center .embed-wrap {
+      width: 90vw;
+      max-width: 90vw;
+      margin: 0;            /* 왼쪽 붙임 */
+    }
+    section.viewport-center .embed {
+      width: 90vw;
+      max-width: 90vw;
+      min-height: 0;        /* 기존 60vh 같은 큰 높이 무력화 */
+      height: auto;
+      aspect-ratio: 16 / 9; /* 축소 시 적정 비율 유지 */
+      position: relative;
+      overflow: hidden;
+      float: none;
+    }
+    section.viewport-center .embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* 글자도 함께 살짝 축소(가독 범위 유지) */
     #news-section {
-      font-size: clamp(10px, 2.5vw, 13px);
-      line-height: 1.4;
+      font-size: clamp(11px, 3.1vw, 14px);
+      line-height: 1.45;
     }
     #news-section h2,
     #news-section h3 {
-      font-size: clamp(14px, 3.5vw, 18px);
+      font-size: clamp(16px, 4.2vw, 20px);
       line-height: 1.3;
       margin: 0.5em 0 0.3em;
-    }
-    #news-section li {
-      margin: 0.3em 0;
     }
   }
 </style>
