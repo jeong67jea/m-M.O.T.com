@@ -910,5 +910,33 @@ function siteSearch(e){
   }
 </style>
 
+<style id="stock-news-mobile-center-force">
+  /* 모바일 세로에서 하단 뉴스 두 블록을 정확히 중앙 2/3로 */
+  @media (orientation: portrait) and (max-width: 768px) {
+
+    /* 1) 배너/뉴스 리스트 쪽 */
+    #news-section > div {
+      width: 66.6667%;
+      max-width: 66.6667%;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;         /* auto 마진 의존 제거 */
+      float: none;       /* 혹시 남아있을 float 무효화 */
+    }
+
+    /* 2) 아래 'Daily Top10' 임베드 쪽 */
+    section.viewport-center .embed-wrap {
+      width: 66.6667%;
+      max-width: 66.6667%;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      float: none;
+    }
+  }
+</style>
+
 
 </body></html>
