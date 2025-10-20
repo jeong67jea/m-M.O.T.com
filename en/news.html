@@ -890,7 +890,25 @@ function siteSearch(e){
 <footer class="mot-footer" role="contentinfo">
 <small>ⓒ M.O.T. All rights reserved.</small>
 </footer>
-
 <script src="../js/lang-switch.js"></script>
+
+<style id="stock-news-width-2of3">
+  /* 데스크톱/태블릿: 2/3 폭 + 가운데 정렬 */
+  #news-section > div,
+  .viewport-center .embed-wrap {
+    width: 66.6667%;
+    max-width: 1200px;   /* 기존 한도 유지 */
+    margin: 0 auto;      /* 가운데 정렬 */
+  }
+
+  /* 모바일은 전체 폭 유지 */
+  @media (max-width: 768px) {
+    #news-section > div,
+    .viewport-center .embed-wrap {
+      width: 100%;
+    }
+  }
+</style>
+
 
 </body></html>
