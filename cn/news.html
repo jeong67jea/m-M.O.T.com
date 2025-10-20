@@ -917,8 +917,8 @@ function siteSearch(e){
     #news-section iframe,
     #newsFrame {
       display: block;
-      width: 70vw;             /* 컨테이너가 70vw여도 iframe도 동일하게 */
-      max-width: 70vw;
+      width: 40vw;             /* 컨테이너가 70vw여도 iframe도 동일하게 */
+      max-width: 40vw;
       height: auto;            /* 고정 height 속성 있으면 CSS가 우선함 */
       margin: 0 auto;          /* 안전 중앙 */
       border: 0;
@@ -926,16 +926,16 @@ function siteSearch(e){
 
     /* 3) 텍스트도 함께 축소 (본문/목록/캡션 전반) */
     #news-section {
-      font-size: clamp(13px, 3.6vw, 15px);   /* 본문 기준 크기 */
+      font-size: clamp(7px, 1.6vw, 8px);   /* 본문 기준 크기 */
       line-height: 1.45;
     }
     #news-section h2, 
     #news-section h3 {
-      font-size: clamp(18px, 4.8vw, 22px);   /* 제목도 살짝 작게 */
+      font-size: clamp(9px, 2.8vw, 12px);   /* 제목도 살짝 작게 */
       line-height: 1.25;
       margin: 0.6em 0 0.4em;
     }
-    #news-section li { margin: 0.35em 0; }
+    #news-section li { margin: 0.30em 0; }
   }
 </style>
 
