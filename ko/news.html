@@ -893,35 +893,31 @@ function siteSearch(e){
 
 <script src="../js/lang-switch.js"></script>
 
-<style id="stock-news-width-2of3">
-  /* 데스크톱/태블릿: 2/3 폭 + 가운데 정렬 */
-  #news-section > div,
-  .viewport-center .embed-wrap {
-    width: 66.6667%;
-    max-width: 1200px;   /* 기존 한도 유지 */
-    margin: 0 auto;      /* 가운데 정렬 */
-  }
-
-  /* 모바일은 전체 폭 유지 */
-  @media (max-width: 768px) {
-    #news-section > div,
-    .viewport-center .embed-wrap {
-      width: 100%;
-    }
-  }
-</style>
-
-<style id="stock-news-width-2of3-mobile">
-  /* 모바일: 하단 뉴스 영역만 2/3 폭 + 가운데 정렬 */
-  @media (max-width: 768px) {
-    #news-section > div,
-    section.viewport-center .embed-wrap {
+<style id="news-2of3-portrait-only">
+  /* 모바일 세로에서만: 하단 뉴스 래퍼를 2/3 폭 + 중앙 정렬(계산형 마진) */
+  @media (orientation: portrait) and (max-width: 768px) {
+    #news-section > div {
+      display: block;
       width: 66.6667%;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 66.6667%;
+      /* 오토마진 대신 계산형 마진으로 '진짜' 중앙 고정 */
+      margin-left: calc((100% - 66.6667%) / 2);
+      margin-right: calc((100% - 66.6667%) / 2);
+      /* 패딩이 시각적 치우침을 만들 수 있어 좌우 패딩만 0으로 */
+      padding-left: 0;
+      padding-right: 0;
+      box-sizing: border-box;
+      float: none;         /* 혹시 남아 있는 float 영향 방지 */
+    }
+    /* i-frame은 컨테이너 기준 100%로, 블록화 */
+    #newsFrame {
+      display: block;
+      width: 100%;
+      max-width: 100%;
     }
   }
 </style>
+
 
 
 </body></html>
