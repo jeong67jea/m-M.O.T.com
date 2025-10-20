@@ -908,8 +908,8 @@ function siteSearch(e){
     #news-section > div,
     #news-section .embed-wrap {
       display: inline-block;   /* text-align:center와 조합해 정확 중앙 */
-      width: 70vw;             /* 부모 패딩과 무관하게 '화면'의 70% */
-      max-width: 70vw;
+      width: 20vw;             /* 부모 패딩과 무관하게 '화면'의 70% */
+      max-width: 20vw;
       vertical-align: top;
     }
 
@@ -917,8 +917,8 @@ function siteSearch(e){
     #news-section iframe,
     #newsFrame {
       display: block;
-      width: 40vw;             /* 컨테이너가 70vw여도 iframe도 동일하게 */
-      max-width: 40vw;
+      width: 20vw;             /* 컨테이너가 70vw여도 iframe도 동일하게 */
+      max-width: 20vw;
       height: auto;            /* 고정 height 속성 있으면 CSS가 우선함 */
       margin: 0 auto;          /* 안전 중앙 */
       border: 0;
@@ -931,11 +931,11 @@ function siteSearch(e){
     }
     #news-section h2, 
     #news-section h3 {
-      font-size: clamp(9px, 2.8vw, 12px);   /* 제목도 살짝 작게 */
+      font-size: clamp(7px, 2.8vw, 10px);   /* 제목도 살짝 작게 */
       line-height: 1.25;
       margin: 0.6em 0 0.4em;
     }
-    #news-section li { margin: 0.30em 0; }
+    #news-section li { margin: 0.25em 0; }
   }
 </style>
 
