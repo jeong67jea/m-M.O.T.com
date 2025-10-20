@@ -892,52 +892,55 @@ function siteSearch(e){
 </footer>
 <script src="../js/lang-switch.js"></script>
 
-<style id="news-portrait-70vw-center">
-  /* 모바일 세로에서만 적용 */
+<style id="news-portrait-30vw-center">
+  /* 모바일 세로(포트레이트) 전용 */
   @media (orientation: portrait) and (max-width: 768px) {
 
-    /* 0) 부모 패딩/플로트 영향 제거 + 가운데 정렬 기반 */
+    /* 1) 부모: 패딩/float 영향 제거 및 중앙 기준 */
     #news-section {
       padding-left: 0;
       padding-right: 0;
       float: none;
-      text-align: center;   /* 내부 인라인 요소도 중앙 */
+      text-align: center;   /* 내부 inline-block 요소 중앙 */
     }
 
-    /* 1) 뉴스 래퍼(카드/임베드 감싸는 div) 폭을 뷰포트 기준 70%로 고정 */
+    /* 2) 뉴스 래퍼 전체 폭을 30vw로 줄이기 */
     #news-section > div,
     #news-section .embed-wrap {
-      display: inline-block;   /* text-align:center와 조합해 정확 중앙 */
-      width: 20vw;             /* 부모 패딩과 무관하게 '화면'의 70% */
-      max-width: 20vw;
+      display: inline-block;
+      width: 30vw;        /* 화면의 30% */
+      max-width: 30vw;
       vertical-align: top;
     }
 
-    /* 2) iframe 자체도 70%에 맞춰 축소 + 중앙 */
+    /* 3) iframe도 동일하게 30vw로 직접 지정 */
     #news-section iframe,
     #newsFrame {
       display: block;
-      width: 20vw;             /* 컨테이너가 70vw여도 iframe도 동일하게 */
-      max-width: 20vw;
-      height: auto;            /* 고정 height 속성 있으면 CSS가 우선함 */
-      margin: 0 auto;          /* 안전 중앙 */
+      width: 30vw;        /* 실제 영상 크기 축소 */
+      max-width: 30vw;
+      height: auto !important;   /* 고정 height가 있다면 강제 auto */
+      margin: 0 auto;
       border: 0;
     }
 
-    /* 3) 텍스트도 함께 축소 (본문/목록/캡션 전반) */
+    /* 4) 텍스트도 30% 크기에 맞춰 전체적으로 축소 */
     #news-section {
-      font-size: clamp(7px, 1.6vw, 8px);   /* 본문 기준 크기 */
-      line-height: 1.45;
+      font-size: clamp(10px, 2.5vw, 13px);
+      line-height: 1.4;
     }
-    #news-section h2, 
+    #news-section h2,
     #news-section h3 {
-      font-size: clamp(7px, 2.8vw, 10px);   /* 제목도 살짝 작게 */
-      line-height: 1.25;
-      margin: 0.6em 0 0.4em;
+      font-size: clamp(14px, 3.5vw, 18px);
+      line-height: 1.3;
+      margin: 0.5em 0 0.3em;
     }
-    #news-section li { margin: 0.25em 0; }
+    #news-section li {
+      margin: 0.3em 0;
+    }
   }
 </style>
+
 
 
 </body></html>
