@@ -1,4 +1,230 @@
+<!DOCTYPE html>
 
+<html lang="ko"><head>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+<title>MOT · Mobile</title>
+<!-- TOC pills -->
+<style>
+    .toc-inline{ position: sticky; top:6px; z-index:6; max-width:1200px; margin:0 auto 10px; padding:0 16px; display:flex; gap:8px; flex-wrap:wrap; }
+    .toc-inline a{ display:inline-block; padding:6px 12px; border:1px solid var(--border); border-radius:999px; background:#fff; color:#334155; font-size:13px; box-shadow:0 6px 12px rgba(15,23,42,.06); }
+    .toc-inline a:focus,.toc-inline a:hover{ border-color:#c7d2fe; color:#1d4ed8; background:#eef2ff; outline:none }
+  </style>
+<!-- /videos.html 기준 -->
+<link href="../css/mot-mobile.css" rel="stylesheet"/>
+<!-- Fallback styles (accordion + carousel) -->
+<style>
+    /* === Breadbox / Accordion === */
+    #mot-nav .menu > .menu-item > .submenu { display:none !important; }
+    #mot-nav .menu > .menu-item[aria-expanded="true"] > .submenu { display:block !important; }
+
+    #mot-nav .menu-btn{
+      display:flex; align-items:center; justify-content:space-between;
+      width:100%; padding:14px 16px; border:0; background:#fff;
+      font-size:18px; font-weight:800; cursor:pointer;
+      pointer-events:auto; position:relative; z-index:1; /* ensure clickable */
+    }
+    #mot-nav .menu-btn::after{ content:"▾"; transition:transform .2s ease; }
+    #mot-nav .menu-item[aria-expanded="true"] > .menu-btn::after{ transform:rotate(180deg); }
+
+    #mot-nav ul{ list-style:none; margin:0; padding:0; }
+    #mot-nav .menu{ display:flex; flex-direction:column; gap:12px; }
+    #mot-nav .menu-item{ border:1px solid #e8edf4; border-radius:16px; background:#fff; overflow:hidden; }
+
+    /* === Hero / Carousel === */
+    .hc-fullbleed{
+      width:100vw; position:relative;
+      left:50%; right:50%; margin-left:-50vw; margin-right:-50vw;
+    }
+    .hc-slider{
+      position:relative; overflow:hidden;
+      height:360px; min-height:360px;
+      background:transparent;
+      border-radius:18px; box-shadow:0 14px 40px rgba(0,0,0,.14);
+    }
+    .hc-track{ display:flex; height:100%; transition:transform .4s ease; will-change:transform; }
+    .hc-slide{ position:relative; margin:0; flex:0 0 100%; min-width:100%; height:100%; backface-visibility:hidden; transform:translateZ(0); }
+    .hc-slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Caption: top-center */
+    .hc-caption{
+      position:absolute; top:14px; left:50%; transform:translateX(-50%);
+      z-index:2; color:#fff; font-weight:800; text-align:center;
+      font-size:clamp(18px, 2.4vw, 28px); line-height:1.25;
+      text-shadow:0 2px 4px rgba(0,0,0,.35);
+      padding:8px 14px; border-radius:999px; background:rgba(0,0,0,.25);
+      white-space:nowrap; max-width:96%; overflow:hidden; text-overflow:ellipsis;
+      pointer-events:none;
+    }
+
+    .hc-prev,.hc-next{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:38px; height:38px; border:0; border-radius:12px;
+      background:rgba(0,0,0,.35); color:#fff; cursor:pointer; z-index:3;
+      display:grid; place-items:center;
+    }
+    .hc-prev{ left:12px; } .hc-next{ right:12px; }
+
+    .hc-dots{ position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:flex; gap:8px; z-index:3; }
+    .hc-dots button{ width:8px; height:8px; border:0; border-radius:50%; background:rgba(255,255,255,.6); cursor:pointer; }
+    .hc-dots button[aria-current="true"]{ background:#fff; }
+
+    /* === Page content card === */
+    :root { --ink:#0b1320; --muted:#5f6b7a; --border:#e6e9f0; }
+    html,body{ margin:0; color:var(--ink); background:#fafbfe; line-height:1.6;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif; }
+    main.wrap{ max-width:1200px; margin:24px auto 64px; padding:0 16px; }
+    .panel{
+      background:#fff; border:1px solid #e6e9f0; border-radius:16px;
+      box-shadow:0 16px 50px rgba(0,0,0,.10);
+      padding:clamp(18px,3vw,28px); position:relative; overflow:hidden;
+    }
+    .content{ max-width:720px; margin:0 auto; padding-right:clamp(160px,22vw,320px); }
+    .content h1{ font-size:clamp(28px, 4vw, 36px); margin:8px 0 10px; }
+    .sub{ color:#5f6b7a; font-weight:600; margin:0 0 18px; }
+    .corner-img{
+      position:absolute; right:clamp(18px,3vw,28px); bottom:clamp(18px,3vw,28px);
+      width:clamp(160px, 22vw, 320px); max-width:38%;
+      height:auto; display:block; border-radius:10px;
+      box-shadow:0 8px 24px rgba(0,0,0,.10);
+    }
+    @media (max-width:640px){
+      .content{ padding-right:clamp(120px,34vw,180px); }
+      .corner-img{ width:clamp(120px, 34vw, 180px); }
+    }
+  </style>
+<style>
+/* === Center align from Awards (비용) downward + Certificates 4x2 === */
+.tib-figure,
+.tib-figure img { display:block; margin-left:auto; margin-right:auto; }
+.tib-figure { text-align:center; }
+
+/* Lists under awards/certs */
+h2 + ul, h2 + .tib-figure + ul { 
+  margin-left:auto; margin-right:auto; 
+  text-align:center; list-style-position:inside;
+}
+
+/* Certificates table -> center & fixed 4x2 visual */
+h2 + table, table { 
+  margin-left:auto; margin-right:auto; 
+  border-collapse:separate; border-spacing:16px 14px;
+}
+td.group { 
+  width:25%; 
+  text-align:center; 
+  vertical-align:top; 
+  padding:10px;
+}
+td.group figure { margin:0; }
+td.group img { 
+  display:block; 
+  margin:0 auto; 
+  max-width:100%; 
+  height:auto; 
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+td.group ul { margin:8px 0 0; padding:0; list-style:none; text-align:center; }
+td.group li b { font-weight:800; }
+
+/* General bottom container alignment */
+.page { display:block; }
+.page h2 { text-align:center; }
+
+  /* Breadcrumb just above carousel */
+  .breadcrumb{max-width:1200px;margin:8px auto 12px;padding:0 16px;color:#5f6b7a;font-size:14px;}
+  .breadcrumb a{color:#4a5bdc;text-decoration:none;}
+  .breadcrumb a:hover{text-decoration:underline;}
+
+</style></head>
+<body>
+<div id="mot-app">
+<!-- 헤더 -->
+<header class="mot-header" role="banner">
+<button aria-controls="mot-nav" aria-expanded="false" aria-label="메뉴 열기" class="nav-toggle">☰</button>
+<div class="inner">
+<a class="brand" href="index.html">
+<img alt="MOT Logo" class="logo" src="../assets/logo.png"/>
+<span class="name">MOT</span></a>
+</div>
+<div class="lang-search">
+<select aria-label="언어 선택" id="lang">
+<option value="ko">Ko</option><option value="en">En</option><option value="cn">Cn</option>
+</select>
+<input aria-label="검색" id="search" placeholder="검색" type="search"/>
+</div>
+</header>
+<!-- 빵틀 네비게이션 -->
+<nav aria-label="주 메뉴" class="mot-nav" id="mot-nav">
+<ul class="menu">
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">公司·关于我们</button>
+<ul class="submenu">
+<li><a href="intro.html">关于我们</a></li>
+<li><a href="vision.html">愿景与哲学</a></li>
+<li><a href="history.html">沿革·履历</a></li>
+<li><a href="book.html">著作∙资格认证</a></li>
+</ul>
+</li>
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">业务与服务</button>
+<ul class="submenu">
+<li><a href="projects.html">推进事业</a></li>
+<li><a href="newbiz.html">新业务∙商业规划</a></li>
+<li><a href="rnd.html">研发</a></li>
+<li><a href="digitaldesign.html">数字化设计</a></li>
+<li><a href="systib.html">系统TIB/开发体系</a></li>
+</ul>
+</li>
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">内容与活动</button>
+<ul class="submenu">
+<li><a href="lecture.html">讲座∙内容</a></li>
+<li><a href="solobiz.html">1人知识创业</a></li>
+<li><a href="twelve.html">12M新业务</a></li>
+</ul>
+</li>
+<li aria-expanded="false" class="menu-item">
+<button aria-expanded="false" class="menu-btn">资料室</button>
+<ul class="submenu">
+<li><a href="cost.html">预计费用</a></li>
+<li><a href="videos.html">视频资料</a></li>
+<li><a href="news.html">今日股票价格经济新闻</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+<!-- HERO: 화면 끝까지(Full-bleed) 캐러셀 -->
+<section aria-label="메인 이미지 캐러셀" class="hc-slider hc-fullbleed">
+<button aria-label="이전" class="hc-prev">‹</button>
+<div class="hc-track">
+<figure class="hc-slide">
+<img alt="slide 1" src="../assets/main1.JPG"/>
+<figcaption class="hc-caption">引领人工智能时代的咨询！</figcaption>
+</figure>
+<figure class="hc-slide">
+<img alt="slide 2" src="../assets/main2.JPG"/>
+<figcaption class="hc-caption">助力拓展未来环保事业的咨询！</figcaption>
+</figure>
+<figure class="hc-slide">
+<img alt="slide 3" src="../assets/main3.JPG"/>
+<figcaption class="hc-caption">与家人共同追求幸福的咨询！</figcaption>
+</figure>
+</div>
+<button aria-label="다음" class="hc-next">›</button>
+<div class="hc-dots"></div>
+</section>
+<div aria-label="바로가기" class="toc-inline">
+<a href="#a1">Jig 制作</a>
+<a href="#a2">Electrophotographic</a>
+<a href="#a3">自动化设备</a>
+<a href="#a4">抛光</a>
+<a href="#a5">极超精密加工</a>
+<a href="#a6">数字设计</a>
+<a href="#a7">汽车</a>
+<a href="#a8">MOT</a></div>
 
 <div class="page"><section class="section">
 <h2>视频资料</h2>
