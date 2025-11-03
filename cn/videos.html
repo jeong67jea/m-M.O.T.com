@@ -12,17 +12,17 @@
  .toc-inline a:focus,.toc-inline a:hover{경계색:#c7d2fe;색:#1d4ed8;배경:#eef2ff; 개요:none }
   </스타일.>
 <!-- /videos.html 기준 -->
-<link href="../css/mot-mobile.css" rel="stylesheet"/>
-<!-- Fallback styles (accordion + carousel) -->
-<style>
-    /* === Breadbox / Accordion === */
-    #mot-nav .menu > .menu-item > .submenu { display:none !important; }
-    #mot-nav .menu > .menu-item[aria-expanded="true"] > .submenu { display:block !important; }
+<링크 href=".../css/mot-mobile.css" rel="스타일시트"/>
+<!-- 폴백 스타일 (아코디언 + 캐러셀) -->
+<스타일.>
+    /* === 브레드박스 / 아코디언 === */
+ #mot-nav .menu > .menu-item > .submenu { display:none!중요; }
+ #mot-nav .menu > .menu-item [aria-expanded="true"] > .submenu { display:block!important; }
 
-    #mot-nav .menu-btn{
-      display:flex; align-items:center; justify-content:space-between;
-      width:100%; padding:14px 16px; border:0; background:#fff;
-      font-size:18px; font-weight:800; cursor:pointer;
+ #mot-nav .menu-btn{
+ 디스플레이:플렉스; 정렬:items:중심; 정당화:내용:공간-사이;
+ 너비:100%; 패딩:14 px 16 px; 테두리:0; 배경:#ff;
+ 글꼴 크기:18 px; 글꼴 무게:800; 커서:pointer;
       pointer-events:auto; position:relative; z-index:1; /* ensure clickable */
     }
     #mot-nav .menu-btn::after{ content:"▾"; transition:transform .2s ease; }
@@ -56,21 +56,21 @@
       padding:8px 14px; border-radius:999px; background:rgba(0,0,0,.25);
       white-space:nowrap; max-width:96%; overflow:hidden; text-overflow:ellipsis;
       pointer-events:none;
-    }
+ }
 
- .hc-prev,.hc-다음{
+ .hc-prev, .hc-다음{
  위치: 절대; 상위: 50%; 변환: 번역 Y(-50%);
  너비:38 px; 높이:38 px; 경계:0; 경계-radius:12 px;
  배경:rgba(0,0,0,0.35); 색상:#fff; 커서:pointer; z-index:3;
  디스플레이: 그리드; 장소 items: 센터;
-    }
+ }
  .hc-prev{왼쪽:12 px; } .hc-다음:오른쪽:12 px; }
 
  .hc-dots{ 위치: 절대; 왼쪽: 50%; 하단: 12px; 변환: translateX(-50%); 디스플레이: 플렉스; 갭: 8px; z-인덱스: 3; }
  .hc-dots 버튼{ 너비:8 px; 높이:8 px; 경계:0; 경계:50%; 배경:rgba(255,255,255,.6); 커서:pointer; }
  .hc-dots 버튼[아리아-전류="참"]{ 배경:#ff; }
 
-    /* === 페이지 콘텐츠 카드 === */
+ /* === 페이지 콘텐츠 카드 === */
  :root { --ink:#0b1320; --muted:#5f6b7a; --border:#e6e9f0; }
  HTML,body{ 여백:0; 색상:var(--ink); 배경:#fafbfe; 줄 높이:1.6;
  폰트 패밀리:system-ui,-apple-system, Segoe UI, Roboto,헬베티카, 아리알, '애플 SD 고딕 네오', '노토 산스 KR', 말군 고딕', 산세리프; }
@@ -78,21 +78,21 @@
  .패널{
  배경:#ffff; 경계:1 px 솔리드 #e6e9f0; 경계:radius:16 px;
  box-shadow:0 16px 50px rgba(0,0,0,.10);
- 패딩: clamp(18 px, 3vw, 28 px); 포지션: relative; 오버플로우: 숨김;
-    }
+ 패딩: 클램프(18px, 3vw, 28px); 포지션: 상대; 오버플로우: 숨김;
+ }
  .content{ 최대 너비:720 px; 여백:0 자동; 패딩 라이트:clamp(160 px, 22vw, 320 px); }
- .content h1{ 글꼴 크기: clamp(28 px, 4vw, 36 px); 여백: 8 px 0 10 px; }
+ .content h1{ 글꼴 크기: 클램프(28px, 4vw, 36px); 여백: 8px 0 10px; }
  .sub{색상:#5f6b7a; 글꼴 무게:600; 여백:0 0 18 px; }
  .corner-img{
  포지션: 절대; 오른쪽: clamp(18 px, 3vw, 28 px); 하단: clamp(18 px, 3vw, 28 px);
- 너비: clamp(160 px, 22vw, 320 px); 최대 너비:38%;
+ 너비: 클램프(160px, 22vw, 320px); 최대 너비: 38%;
  높이:자동; 디스플레이:차단; 테두리-radius:10 px;
  box-shadow:0 8px 24px rgba(0,0,0,.10);
-    }
- @media (최대 너비: 640px){
- .content{ 패딩라이트: clamp(120 px, 34vw, 180 px); }
- .corner-img{ 너비:clamp(120 px, 34vw, 180 px); }
-    }
+ }
+ @media (최대 너비: 640 px){
+ .content{ 패딩라이트: 클램프(120px, 34vw, 180px); }
+ .corner-img{ 너비: clamp(120px, 34vw, 180px); }
+ }
  </스타일.>
 <스타일.>
 /* === 시상식(비용)에서 중앙 정렬 + 인증서 4x2 === */
@@ -103,7 +103,7 @@
 /* 수상/인증 목록 */
 h2 + ul, h2 + .tib 도형 + ul { 
  여백 왼쪽:auto; 여백 오른쪽:auto; 
- 텍스트 align:가운데;목록 스타일 위치:inside;
+ 텍스트 정렬:가운데;목록 스타일 위치:inside;
 }
 
 /* 인증서 표 -> 중심 및 고정 4x2 비주얼 */
@@ -123,20 +123,20 @@ td.group img {
  여백:0 auto; 
  최대 너비:100%; 
  높이:자동; 
- 국경 radius:10 px;
+ 국경 반경:10 px;
  box-shadow:0 6px 18px rgba(0,0,0,.08);
 }
 td.group ul {margin}:8 px 0; 패딩:0; 리스트 스타일:none; 텍스트-align:센터; }
-td.group li b { 글꼴 무게:800; }
+td.group li b {글꼴 무게:800; }
 
 /* 일반 하단 용기 정렬 */
 .페이지 {디스플레이:차단; }
 .페이지 h2 {text-align:center; }
 
-  /* 캐러셀 바로 위의 빵 부스러기 */
- .breadcrum{최대 너비:1200px;margin:8 px 자동 12 px;padding:0 16 px;색상:#5f6b7a;font 크기:14 px;}
+ /* 캐러셀 바로 위의 빵 부스러기 */
+ .breadcrum{최대 너비:1200px;margin:8px 자동 12px;padding:0 16px;색상:#5f6b7a;font 크기:14px;}
  .breadcrum a{색상:#4a5bdc;텍스트 장식:none;}
- .breadcrum a: hover{텍스트 장식: 밑줄;}
+ .breadcrum a: 호버{텍스트 장식: 밑줄;}
 
 </스타일.></머리>
 <몸>
@@ -146,7 +146,7 @@ td.group li b { 글꼴 무게:800; }
 <버튼 아리아-controls="mot-nav" 아리아-expanded="false" 아리아-라벨="메뉴 열기" 클래스="나비-toggle">☰<버튼>
 <div class="inner">
 <a class="brand" href="index.html">
-<img alt="MOT 로고 클래스="logo" src=".../assets/logo.png"/>
+<img alt="MOT 로고 클래스 = "logo" src=".../assets/logo.png"/>
 <span class="name">MOT</span></a>
 </div>
 <div class="lang 검색">
@@ -158,10 +158,10 @@ td.group li b { 글꼴 무게:800; }
 </header>
 <!-- 빵틀 네비게이션 -->
 <nav 아리아-라벨="주 메뉴" 클래스="mot-nav" ID="mot-nav">
-<ul class="메뉴">
+<UL class="메뉴">
 <리아리아-expanded="false" 클래스="메뉴 항목">
 <버튼 아리아-expanded="false" 클래스="메뉴-btn">公司-关于我们</버튼>
-<ul class="서브메뉴">
+<UL class="서브메뉴">
 <li><a href="intro.html">关于我们</a></li>
 <li><a href="비전.html">愿景与哲学</a></li>
 <li><a href="history.html">沿革-履历</a></li>
@@ -170,7 +170,7 @@ td.group li b { 글꼴 무게:800; }
 </li>
 <리아리아-expanded="false" 클래스="메뉴 항목">
 <버튼 아리아-expanded="false" 클래스="메뉴-btn">业务与服务</버튼>
-<ul class="서브메뉴">
+<UL class="서브메뉴">
 <li><a href="projects.html">推进事业</a></li>
 <li><a href="newbiz.html">新业务∙商业规划</a></li>
 <li><a href="rnd.html">研发</a></li>
@@ -180,7 +180,7 @@ td.group li b { 글꼴 무게:800; }
 </li>
 <리아리아-expanded="false" 클래스="메뉴 항목">
 <버튼 아리아-expanded="false" 클래스="메뉴-btn">内容与活动</버튼>
-<ul class="서브메뉴">
+<UL class="서브메뉴">
 <li><a href="lecture.html">讲座∙内容</a></li>
 <li><a href="solobiz.html">1人知识创业</a></li>
 <li><a href="twelve.html">12M新业务</a></li>
@@ -188,7 +188,7 @@ td.group li b { 글꼴 무게:800; }
 </li>
 <리아리아-expanded="false" 클래스="메뉴 항목">
 <버튼 아리아-expanded="false" 클래스="메뉴-btn">资料室</버튼>
-<ul class="서브메뉴">
+<UL class="서브메뉴">
 <li><a href="cost.html">预计费用</a></li>
 <li><a href="videos.html">视频资料</a></li>
 <li><a href="news.html">今日股票价格经济新闻</a></li>
@@ -197,7 +197,7 @@ td.group li b { 글꼴 무게:800; }
 </ul>
 </nav>
 <!-- 영웅: 화면 끝까지(전혈) 캐러셀 -->
-<섹션 아리아 라벨="메인 이미지 캐러셀" 클래스="HC-slider hc-전혈">
+<섹션 아리아 라벨="메인 이미지 캐러셀" 클래스="HC-슬라이더 hc-전혈">
 <버튼 아리아-라벨="이전" 클래스="hc-prev">‹</버튼>
 <div class="hc-track">
 <figure class="hc-slide">
@@ -218,7 +218,7 @@ td.group li b { 글꼴 무게:800; }
 </섹션>
 <div 아리아-라벨="바로가기" 클래스="toc-inline">
 <a href="#a1">Jig 制作</a>
-<a href="#a2"전기사진</a>
+<a href="#a2" 전기사진</a>
 <a href="#a3">自动化设备</a>
 <a href="#a4">抛光</a>
 <a href="#a5">极超精密加工</a>
@@ -229,105 +229,105 @@ td.group li b { 글꼴 무게:800; }
 <div class="페이지"><섹션 class="섹션">
 <h2>视频资料</h2>
 <div class="비디오 그리드"><article class="비디오 카드">
-<a href="https://youtu.be/dyxd3xBfBWo?si=-AfmNxVrR6A5wxsu " rel="noopener" target="_blank">
+<a href="https://youtu.be/dyxd3xBfBWo?si=-AfmNxVrR6A5wxsu "rel="noopener" 타겟="_blank">
 <div class="video-thumb"><img alt="工装夹具制作流程" src="https://img.youtube.com/vi/4jTpV1LI2eg/hqdefault.jpg "/><</div>
 <div class="video-meta"><h3 class="video-title">工装夹具制作流程</h3><div class="video-sub">YouTube · M.O.T</div></div>
 </a>
 </기사>
 <article class="비디오 카드">
-<a href="https://youtu.be/Sv2JJ46mXxo" rel="noopener" target="_blank">
+<a href="https://youtu.be/f8CKwwudkzA" rel="noopener" target="_blank">
 <div class="video-thumb"><img alt="静电摄影过程（EP ）" src="https://img.youtube.com/vi/kzUdtWdsCxk/hqdefault.jpg "/></div>
 <div class="video-meta"><h3 class="video-title">静电摄影过程（EP ）<h3><div class="video-sub">YouTube · M.O.T</div></div>
 </a>
 </기사>
 <article class="비디오 카드">
-<a href="https://youtu.be/4UKGgV_cO-o?si=dA9liJY4j9lzMaBP " rel="noopener" target="_blank">
+<a href="https://youtu.be/4UKGgV_cO-o?si=dA9liJY4j9lzMaBP "rel="noopener" 타겟="_blank">
 <div class="video-thumb"><img alt="自动化设备市场调研" src="https://img.youtube.com/vi/4EehNuTrryQ/hqdefault.jpg "/><</div>
 <div class="video-meta"><h3 class="video-title">自动化设备市场调研</h3><div class="video-sub">YouTube · M.O.T</div></div>
 </a>
 </기사>
 <article class="비디오 카드">
-<a href="https://youtu.be/tK5fHN3bn1E?si=RQ1r2j_QRsWWCHsC " rel="noopener" target="_blank">
+<a href="https://youtu.be/tK5fHN3bn1E?si=RQ1r2j_QRsWWCHsC "rel="noopener" 타겟="_blank">
 <div class="video-thumb"><img alt="抛光加工市场调研" src="https://img.youtube.com/vi/n2WFNoySSXE/hqdefault.jpg "/><</div>
 <div class="video-meta"><h3 class="video-title">抛光加工市场调研</h3><div class="video-sub">YouTube · M.O.T</div></div>
 </a>
 </기사>
 <article class="비디오 카드">
-<a href="https://youtu.be/bK9BjOrmnR8?si=t5YU7mDAime_C_Yh " rel="noopener" target="_blank">
+<a href="https://youtu.be/bK9BjOrmnR8?si=t5YU7mDAime_C_Yh "rel="noopener" 타겟="_blank">
 <div class="video-thumb"><img alt="超精密加工技术市场调研" src="https://img.youtube.com/vi/HrooIZ4KrxI/hqdefault.jpg "/><</div>
 <div class="video-meta"><h3 class="video-title">超精密加工技术市场调研</h3><div class="video-sub">YouTube · M.O.T</div></div>
 </a>
 </기사>
 <article class="비디오 카드">
-<a href="https://youtu.be/jyn5ays-y00 " rel="noopener" target="_blank">
+<a href="https://youtu.be/jyn5ays-y00 "rel="noopener" 타겟="_blank">
 <div class="video-thumb"><img alt="数字化设计流程 · 稳健设计" src="https://img.youtube.com/vi/CkONkG4D184/hqdefault.jpg "/></<div>
 <div class="video-meta"><h3 class="video-title">数字化设计流程 · 稳健设计</h3><div class="video-sub">YouTube · M.O.T</div></div>
 </a>
 </기사>
 <article class="비디오 카드">
-<a href="https://youtu.be/sumbw1XnoSY " rel="noopener" target="_blank">
+<a href="https://youtu.be/sumbw1XnoSY "rel="noopener" 타겟="_blank">
 <div class="video-thumb"><img alt="汽车数字化设计流程" src="https://img.youtube.com/vi/5uAP234E80c/hqdefault.jpg "/><</div>
 <div class="video-meta"><h3 class="video-title">汽车数字化设计流程</h3><div class="video-sub">YouTube · M.O.T</div></div>
 </a>
-</article>
-<article class="video-card">
-<a href="https://youtu.be/nxP8Co17oCI" rel="noopener" target="_blank">
-<div class="video-thumb"><img alt="M.O.T — 公司介绍" src="https://i9.ytimg.com/vi/nxP8Co17oCI/mqdefault.jpg?v=68f86065&sqp=CPzc7McG&rs=AOn4CLB0XdYEsdEUayt6LuBwYqzDkh7y3Q"/></div>
-<div class="video-meta"><h3 class="video-title">M.O.T — 公司介绍</h3><div class="video-sub">YouTube · M.O.T</div></div>
+</기사>
+<article class="비디오 카드">
+<a href="https://youtu.be/nxP8Co17oCI " rel="noopener" target="_blank">
+<div class="비디오-thumb"><img alt="M.O.T - 公司介绍" src="https://i9.ytimg.com/vi/nxP8Co17oCI/mqdefault.jpg?v=68f86065&sqp=CPzc7McG&rs=AOn4CLB0XdYEsdEUayt6LuBwYqzDkh7y3Q "/></div>
+<div class="video-meta"><h3 class="video-title">M.O.T - 公司介绍</h3><div class="video-sub">YouTube · M.O.T</div></div>
 </a>
 </article></div></section></div>
-<!-- Footer -->
-<footer class="mot-footer" role="contentinfo">
-<small>ⓒ M.O.T. All rights reserved.</small>
+<!-- 푸터 -->
+<footer class="mot-footer" 역할="contentinfo">
+<small>ⓒ M.O.T. 무단 전재 금지.</small>
 </footer>
-<script>
-(function(){
-  const main = document.querySelector('.page');
-  if(!main) return;
-  const h2 = main.querySelector('.section h2');
-  if(h2){
-    const bc = document.createElement('div');
-    bc.className = 'breadcrumb';
-    bc.innerHTML = `<a href="index.html">Home</a> &nbsp;›&nbsp; <span>${h2.textContent}</span>`;
-    // Place breadcrumb directly above the carousel (left-aligned)
-  const slider = document.querySelector('.hc-slider');
-  if (slider) { slider.before(bc); }
-  else { document.body.insertBefore(bc, document.body.firstChild); }
-  }
-  const heads = main.querySelectorAll('.section h3, .section h4');
-  if(heads.length){
-    const toc = document.createElement('nav');
-    toc.className = 'toc-inline';
-    heads.forEach((el,i)=>{
-      const id = el.id || ('h-' + i);
-      el.id = id;
-      const a = document.createElement('a');
-      a.href = '#' + id;
-      a.textContent = el.textContent;
-      toc.appendChild(a);
-    });
-    document.body.insertBefore(toc, main);
-  }
+<대본>
+(함수 (){
+ const main = 문서.쿼리 선택기(.page');
+ 만약 (!메인)이 돌아온다면;
+ const h2 = main.쿼리 선택기('섹션 h2');
+ if(h2){
+ const bc = document.createElement('div');
+ bc.className = '빵가루';
+ BC.innerHTML = '<a href="index.html">홈 </a> › <span>${h2.textContent}</span>;
+ // 빵가루를 캐러셀 바로 위에 놓습니다(왼쪽 정렬)
+ const 슬라이더 = 문서.쿼리 선택기('hc-슬라이더');
+ if (slider) { slider.before(bc)); }
+ 그 외 {document.body.insertBefore(bc, document.body.firstChild); }
+ }
+ constheads = main.쿼리SelectorAll('섹션 h3, .섹션 h4');
+ if(heads.length){
+ const toc = document.createElement('nav');
+ toc.className = 'toc-inline';
+ 각 ((el,i)=>{)에 대해
+ const ID = el.id || ('h-' + i);
+ el.id = ID;
+ const a = document.createElement('a');
+ a.href = '#' + id;
+ a.textContent = el.textContent;
+ toc.appendChild(a);
+ });
+ document.body.insertBefore(toc, main);
+ }
 })();
 </script>
-<script>
-(function(){
-  const car = document.querySelector('.hero .carousel');
-  if(!car) return;
+<대본>
+(기능.(){
+ 자동차 = 문서.쿼리 선택자(.hero .carousel');
+ 만약 (!car)이 돌아온다면;
  const track = car.쿼리 셀렉터(.track');
  const slides = Array.from (track.children);
- idx = 0, N = slides.length, 타이머 = null를 지정합니다;
-  function go(i){
+ idx = 0, N = slides.length, 타이머  = null 를 지정합니다;
+ 함수 go(i){
  idx = (i+N) %N;
  track.style.transform = 'translateX(-${idx*100}vw)';
  점.각((d,k)=>d.classList.toggle('active', k===idx))에 대해;
-  }
- const prev = car.쿼리 선택기(.prev'), next=car.쿼리 선택자(.next');
- prev.addEventListener('클릭', ()=>{ Go(idx-1); 리셋 (); });
+ }
+ const prev = car.쿼리 선택기(.prev'), 다음=자동차.쿼리 선택자(.next');
+ prev.addEventListener('클릭', ()=>{ Go(idx-1); 리셋 (); };
  다음.addEventListener('클릭', ()=>{ Go(idx+1); 리셋 (); });
- const dots = Array.from(car.querySelectorAll('도트 버튼'));
+ 점 = Array.from(car.querySelectorAll('도트 버튼'));
  점들.각 ((d,i)=> d.addEventListener('클릭', ()=>{go(i); 리셋 (); })에 대해;
-  function tick(){ go(idx+1); }
+ 함수 틱 (){ go(idx+1); }
  함수 재설정 (){ 지우기}간격(타이머); 타이머=set간격(직렬, 4000); }
  타이머=세트간격(직렬, 4000);
  window.addEventListener('blur', ()=>클리어간격(타이머);
@@ -341,16 +341,16 @@ td.group li b { 글꼴 무게:800; }
  만약 (!car)이 돌아온다면;
  const track = car.쿼리 셀렉터(.track');
  const slides = Array.from (track.children);
- idx = 0, N = slides.length, 타이머 = null를 지정합니다;
-  기능. 가세요(i){
+ idx = 0, N = slides.length, 타이머  = null 를 지정합니다;
+ 기능. 가세요(i){
  idx = (i+N) %N;
  track.style.transform = 'translateX(-${idx*100}vw)';
  점.각((d,k)=>d.classList.toggle('active', k===idx))에 대해;
-  }
- const prev = car.쿼리 선택기(.prev'), next=car.쿼리 선택자(.next');
- prev & prev.addEventListener('클릭', ()=>{ Go(idx-1); 리셋 (); };
+ }
+ const prev = car.쿼리 선택기(.prev'), 다음=자동차.쿼리 선택자(.next');
+ prev & prev.addEventListener('클릭', ()=>{ Go(idx-1); 리셋(); };
  다음 & 다음.addEventListener('클릭', ()=>{go(idx+1); 리셋 (); });
- const dots = Array.from(car.querySelectorAll('도트 버튼'));
+ 점 = Array.from(car.querySelectorAll('도트 버튼'));
  점들.각 ((d,i)=> d.addEventListener('클릭', ()=>{go(i); 리셋 (); })에 대해;
  함수 틱 (){ go(idx+1); }
  함수 재설정 (){ 지우기}간격(타이머); 타이머=set간격(직렬, 4000); }
@@ -362,13 +362,13 @@ td.group li b { 글꼴 무게:800; }
 </script>
 <스크립트>
 // === Auto: 경량 슬라이더(오프라인) ===
-(function(){
-  기능. 슬라이더(뿌리){
+(함수 (){
+ 기능. 슬라이더(뿌리){
  이.root=root;
  this.track=root.쿼리 선택기('hc-track');
- 이것.slides=[...루트].쿼리SelectorAll('hc-슬라이드')];
+ 이것.slides=[...루트]: 쿼리SelectorAll('hc-슬라이드');
  이것.dots=루트.쿼리 선택기('hc-dots');
- 이.idx=0; 이.timer=null; 이.interval=4000;
+ 이.idx=0; 이.타이머=null; 이.interval=4000;
  이것.bind();
  이.go(0);
  이.자동 ();
@@ -379,16 +379,16 @@ td.group li b { 글꼴 무게:800; }
  var next=this.root.쿼리 선택자('hc-다음');
  if(prev) prev.addEventListener('클릭', 함수(){ self.prev(); self.auto(); });
  if(다음) next.addEventListener('클릭', 함수(){ self.next(); self.auto(); });
- 이. dots.쿼리SelectorAll('hc-dot').각각에 대해 (함수(점,i)){
- dot.addEventListener('클릭', 함수(){ self.go(i); self.auto(); });
+ 이. 점들.쿼리SelectorAll('hc-dot').각각에 대해 (함수(점,i)){
+ dot.addEventListener('클릭', 함수(){ self.go(i); self.auto(); };
  });
  this.root.addEventListener('mouseenter', 함수(){ self.stop(); });
  this.root.addEventListener('mouseleave', function(){ self.auto(); });
  var startX=null;
- this.root.addEventListener('touchstart', function(e){startX=e.touchs[0]클라이언트X; self.stop (); passive},{passive:true});
+ this.root.addEventListener('touchstart', 함수(e){startX=e.touchs[0]클라이언트X; self.stop (); 패시브, {passive:true};
  this.root.addEventListener('touchend', 함수(e){)}
  if(startX===null) 반환;
- var dx=(예: changed)터치 [0.클라이언트X-startX];
+ var dx=(예: 변경됨)터치 [0.클라이언트X-startX];
  if(Math.abs(dx)>40){ dx<0?self.next():self.prev(); }
  셀프 오토 ();
  startX=null;
@@ -398,7 +398,7 @@ td.group li b { 글꼴 무게:800; }
  var dots=this.dots.쿼리SelectorAll(.hc-dot');
  점들.각 함수(d,i){ d.classList.toggle('active', i===this.idx); }, 이것에 대해;
  };
- 슬라이더.prototype.go=function(i){
+ 슬라이더.prototype.go=함수(i){
  if(!this.slides.length)가 반환되면;
  this.idx=(i+this.슬라이드 길이) %this.슬라이드 길이;
  this.track.style.transform='translateX(' + (-100*this.idx) + '%';
